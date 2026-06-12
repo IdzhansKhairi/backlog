@@ -1,0 +1,61 @@
+/* Sidebar Styles */
+.sidebar-container {
+  background: #090e12 !important; /* Override inline styles from Antd if needed */
+  border-right: 1px solid #282f35 !important;
+}
+
+.sidebar-logo-container {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #282f35;
+}
+
+.sidebar-logo-img {
+  height: auto !important;
+  object-fit: contain;
+  transition: all 0.2s;
+}
+
+.sidebar-menu {
+  background: #090e12 !important;
+  border: none !important;
+}
+
+/* Header Styles */
+.site-header {
+  padding: 0 24px !important;
+  background: #0e1217 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #282f35;
+}
+
+.header-left-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-toggle-btn {
+  cursor: pointer;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.header-title {
+  color: #fff;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.header-profile-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+}
