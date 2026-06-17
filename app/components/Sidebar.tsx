@@ -10,47 +10,76 @@ import "./components.css";
 const { Sider } = Layout;
 
 export default function Sidebar({ collapsed }: { collapsed: boolean }) {
-  const [logoCollapsed, setLogoCollapsed] = useState(false);
+  const [showSmallLogo, setShowSmallLogo] = useState(false);
+  const [siderCollapsed, setSiderCollapsed] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     if (collapsed) {
-      // Wait for the 200ms transition to finish before switching the logo
-      const timer = setTimeout(() => setLogoCollapsed(true), 200);
+      // Step 1: Crossfade to small logo first
+      setShowSmallLogo(true);
+      // Step 2: After fade completes, collapse the sidebar
+      const timer = setTimeout(() => setSiderCollapsed(true), 350);
       return () => clearTimeout(timer);
     } else {
-      // When expanding, switch back immediately
-      setLogoCollapsed(false);
+      // Step 1: Expand sidebar first
+      setSiderCollapsed(false);
+      // Step 2: After sidebar expands, crossfade to full logo
+      const timer = setTimeout(() => setShowSmallLogo(false), 350);
+      return () => clearTimeout(timer);
     }
   }, [collapsed]);
 
   const menuItems = [
     {
-      key: "/dashboard",
-      icon: <i className="bi bi-grid-1x2" style={{ fontSize: "1.1rem" }}></i>,
-      label: <Link href="/dashboard">Dashboard</Link>,
+      type: "group",
+      label: "Overview",
+      children: [
+        {
+          key: "/dashboard",
+          icon: <i className="bi bi-grid-1x2" style={{ fontSize: "1.1rem" }}></i>,
+          label: <Link href="/dashboard">Dashboard</Link>,
+        },
+        {
+          key: "/analytics",
+          icon: <i className="bi bi-graph-up" style={{ fontSize: "1.1rem" }}></i>,
+          label: <Link href="/analytics">Financial Analytics</Link>,
+        },
+      ],
     },
     {
-      key: "/collection",
-      icon: <i className="bi bi-collection" style={{ fontSize: "1.1rem" }}></i>,
-      label: <Link href="/collection">Collection</Link>,
+      type: "group",
+      label: "Inventory",
+      children: [
+        {
+          key: "/collection",
+          icon: <i className="bi bi-collection" style={{ fontSize: "1.1rem" }}></i>,
+          label: <Link href="/collection">Collection</Link>,
+        },
+        {
+          key: "/equipment",
+          icon: <i className="bi bi-hammer" style={{ fontSize: "1.1rem" }}></i>,
+          label: <Link href="/equipment">Equipment</Link>,
+        },
+      ],
     },
     {
-      key: "/workbench",
-      icon: <i className="bi bi-wrench" style={{ fontSize: "1.1rem" }}></i>,
-      label: <Link href="/workbench">Workbench</Link>,
-    },
-    {
-      key: "/analytics",
-      icon: <i className="bi bi-graph-up" style={{ fontSize: "1.1rem" }}></i>,
-      label: <Link href="/analytics">Financial Analytics</Link>,
+      type: "group",
+      label: "Activity",
+      children: [
+        {
+          key: "/workbench",
+          icon: <i className="bi bi-wrench" style={{ fontSize: "1.1rem" }}></i>,
+          label: <Link href="/workbench">Workbench</Link>,
+        },
+      ],
     },
   ];
 
   return (
     <Sider
       collapsible
-      collapsed={collapsed}
+      collapsed={siderCollapsed}
       trigger={null} /* Hide default bottom trigger */
       width={250} /* <-- Use the width prop here */
       theme="dark"
@@ -58,14 +87,24 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
     >
       {/* Your custom logo */}
       <div className="pt-2 pb-3 sidebar-logo-container">
-        <Image
-          src={logoCollapsed ? "/images/backlog-logo.png" : "/images/backlog-logo-transparent.png"}
-          alt="Backlog Logo"
-          width={500} // Intrinsic width (doesn't force display width)
-          height={500} // Intrinsic height
-          style={{ width: collapsed ? "40px" : "210px" }} // Dynamic width
-          className="sidebar-logo-img"
-        />
+        <div className="my-2 sidebar-logo-wrapper">
+          {/* Full logo (with text) */}
+          <Image
+            src="/images/backlog-logo-transparent.png"
+            alt="Backlog Logo Full"
+            width={500}
+            height={500}
+            className={`sidebar-logo-full ${showSmallLogo ? 'logo-hidden' : 'logo-visible'}`}
+          />
+          {/* Small logo (icon only) */}
+          <Image
+            src="/images/backlog-logo.png"
+            alt="Backlog Logo Small"
+            width={500}
+            height={500}
+            className={`sidebar-logo-small ${showSmallLogo ? 'logo-visible' : 'logo-hidden'}`}
+          />
+        </div>
       </div>
       <ConfigProvider
         theme={{

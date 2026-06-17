@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { Layout, Avatar, Dropdown, MenuProps } from "antd";
-import { UserOutlined, LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import { Layout, Avatar } from "antd";
 import { usePathname } from "next/navigation";
 import "./components.css";
 
@@ -15,22 +14,11 @@ export default function Header({ collapsed, setCollapsedAction }: { collapsed: b
         if (pathname.startsWith("/dashboard")) return "Dashboard";
         if (pathname.startsWith("/workbench")) return "Workbench";
         if (pathname.startsWith("/collection")) return "Collection";
+        if (pathname.startsWith("/equipment")) return "Equipment";
         if (pathname.startsWith("/analytics")) return "Financial Analytics";
         return "";
     };
 
-    const items: MenuProps["items"] = [
-        {
-            key: "1",
-            icon: <SettingOutlined />,
-            label: "Settings",
-        },
-        {
-            key: "2",
-            icon: <LogoutOutlined />,
-            label: "Logout",
-        },
-    ];
 
     return (
         <AntHeader className="site-header">
@@ -46,12 +34,21 @@ export default function Header({ collapsed, setCollapsedAction }: { collapsed: b
                 </h1>
             </div>
 
-            <Dropdown menu={{ items }} placement="bottomRight" arrow>
-                <div className="header-profile-btn">
-                    <span>Admin User</span>
-                    <Avatar icon={<UserOutlined />} />
+            <div className="d-flex align-items-center gap-2">
+                <div className="d-flex flex-column align-items-end user-info">
+                    <span className="user-name">Hans</span>
+                    <span className="user-email">muhammadidzhanskhairi@gmail.com</span>
                 </div>
-            </Dropdown>
+
+                <Avatar size={40} className="user-avatar">
+                    H
+                </Avatar>
+
+                <div className="d-flex align-items-center logout-btn gap-2 px-3 py-2">
+                    <i className="bi bi-box-arrow-right" style={{ fontSize: "20px" }}></i>
+                    <span>Log Out</span>
+                </div>
+            </div>
         </AntHeader>
     );
 }

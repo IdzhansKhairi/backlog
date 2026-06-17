@@ -1,6 +1,7 @@
 /* Sidebar Styles */
 .sidebar-container {
-  background: #090e12 !important; /* Override inline styles from Antd if needed */
+  background: #090e12 !important;
+  /* Override inline styles from Antd if needed */
   border-right: 1px solid #282f35 !important;
 }
 
@@ -16,6 +17,88 @@
   transition: all 0.2s;
 }
 
+/* View Kit Modal Overrides */
+.view-modal-container {
+  width: 680px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px 28px;
+}
+
+/* Equipment Modal Specifics */
+.equipment-type-toggle {
+  display: flex;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  padding: 4px;
+}
+
+.equipment-type-toggle button {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  color: #8b949e;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.equipment-type-toggle button.active {
+  background: #f28123;
+  color: #000;
+}
+
+.equipment-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.equipment-form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+.sidebar-logo-wrapper {
+  position: relative;
+  width: 100%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-logo-full {
+  position: absolute;
+  width: 210px;
+  height: auto !important;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-logo-small {
+  position: absolute;
+  width: 60px;
+  height: auto !important;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.logo-visible {
+  opacity: 1;
+}
+
+.logo-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .sidebar-menu {
   background: #090e12 !important;
   border: none !important;
@@ -25,6 +108,9 @@
 .site-header {
   padding: 0 24px !important;
   background: #0e1217 !important;
+  position: sticky !important;
+  top: 0;
+  z-index: 50;
   display: flex !important;
   align-items: center;
   justify-content: space-between;
@@ -52,10 +138,49 @@
   font-weight: 500;
 }
 
-.header-profile-btn {
-  cursor: pointer;
+.header-right-section {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
+}
+
+.user-info {
+  line-height: 1.2;
+}
+
+.user-name {
   color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.user-email {
+  color: #a3b3c2;
+  font-size: 12px;
+}
+
+.user-avatar {
+  background-color: #f28123 !important;
+  color: #111 !important;
+  border: 2px solid #4a331c !important;
+  font-weight: bold;
+  font-size: 18px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-btn {
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  margin-left: 8px;
+  /* padding: 8px 12px; */
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  line-height: normal;
+}
+
+.logout-btn:hover {
+  background-color: #282f35;
 }
