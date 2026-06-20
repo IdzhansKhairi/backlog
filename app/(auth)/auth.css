@@ -1,0 +1,163 @@
+/* ── Auth Layout ────────────────────────────────────────────── */
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0e1217;
+  padding: 24px;
+}
+
+/* ── Auth Card ──────────────────────────────────────────────── */
+.auth-card {
+  background: #11151a;
+  border: 1px solid #1c2128;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.auth-card.signup-card {
+  max-width: 600px;
+}
+
+.auth-logo {
+  width: 220px;
+  height: auto;
+  margin-bottom: 32px;
+  object-fit: contain;
+}
+
+/* ── Form Styles ────────────────────────────────────────────── */
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.auth-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.auth-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.auth-label {
+  color: #c9d1d9;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.auth-input {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #f28123;
+  box-shadow: 0 0 0 1px #f28123;
+}
+
+.auth-error-msg {
+  color: #da3633;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(218, 54, 51, 0.1);
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(218, 54, 51, 0.2);
+  margin-bottom: 8px;
+}
+
+.auth-submit-btn {
+  background: #f28123;
+  color: #000;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background: #d96f1c;
+}
+
+.auth-submit-btn:disabled {
+  background: #3d3020;
+  color: #8b7a5e;
+  cursor: not-allowed;
+}
+
+.auth-footer {
+  margin-top: 24px;
+  color: #8b949e;
+  font-size: 14px;
+}
+
+.auth-link {
+  color: #f28123;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.auth-link:hover {
+  color: #d96f1c;
+}
+
+/* ── Password Input ─────────────────────────────────────────── */
+.auth-password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.auth-password-input {
+  padding-right: 40px !important;
+}
+
+.auth-password-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8b949e;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.auth-password-icon:hover {
+  color: #c9d1d9;
+}

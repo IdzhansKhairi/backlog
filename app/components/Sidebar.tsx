@@ -34,27 +34,27 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
     {
       key: "/dashboard",
       icon: <i className="bi bi-grid-1x2" style={{ fontSize: "1.1rem" }}></i>,
-      label: <Link href="/dashboard">Dashboard</Link>,
+      label: <Link href="/dashboard" className="text-decoration-none">Dashboard</Link>,
     },
     {
       key: "/analytics",
       icon: <i className="bi bi-graph-up" style={{ fontSize: "1.1rem" }}></i>,
-      label: <Link href="/analytics">Financial Analytics</Link>,
+      label: <Link href="/analytics" className="text-decoration-none">Financial Analytics</Link>,
     },
     {
       key: "/collection",
       icon: <i className="bi bi-collection" style={{ fontSize: "1.1rem" }}></i>,
-      label: <Link href="/collection">Collection</Link>,
+      label: <Link href="/collection" className="text-decoration-none">Collection</Link>,
     },
     {
       key: "/equipment",
       icon: <i className="bi bi-hammer" style={{ fontSize: "1.1rem" }}></i>,
-      label: <Link href="/equipment">Equipment</Link>,
+      label: <Link href="/equipment" className="text-decoration-none">Equipment</Link>,
     },
     {
       key: "/workbench",
       icon: <i className="bi bi-wrench" style={{ fontSize: "1.1rem" }}></i>,
-      label: <Link href="/workbench">Workbench</Link>,
+      label: <Link href="/workbench" className="text-decoration-none">Workbench</Link>,
     },
   ];
 
@@ -128,7 +128,7 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
       
       {/* Settings at bottom */}
       <div className="sidebar-bottom-action mt-auto">
-        <Link href="/settings" className={`sidebar-settings-link ${pathname === '/settings' ? 'active' : ''}`}>
+        <Link href="/settings" className={`text-decoration-none sidebar-settings-link ${pathname === '/settings' ? 'active' : ''}`}>
           <i className="bi bi-gear"></i>
           <span className={`sidebar-settings-text ${siderCollapsed ? 'collapsed' : ''}`}>Settings</span>
         </Link>

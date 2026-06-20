@@ -27,6 +27,9 @@ export default function SettingsPage() {
   };
   const [profile, setProfile] = useState(initialProfile);
 
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   // Computed values
   const isChanged = JSON.stringify(profile) !== JSON.stringify(initialProfile);
   const passwordMismatch =
@@ -199,11 +202,37 @@ export default function SettingsPage() {
               </div>
               <div className="form-group">
                 <label className="form-label">New password</label>
-                <input type="password" name="newPassword" className="form-input" placeholder="Leave blank to keep current" value={profile.newPassword} onChange={handleProfileChange} />
+                <div className="settings-password-wrapper">
+                  <input 
+                    type={showNewPassword ? "text" : "password"} 
+                    name="newPassword" 
+                    className="form-input settings-password-input" 
+                    placeholder="Leave blank to keep current" 
+                    value={profile.newPassword} 
+                    onChange={handleProfileChange} 
+                  />
+                  <i 
+                    className={`bi ${showNewPassword ? "bi-eye-slash" : "bi-eye"} settings-password-icon`} 
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                  ></i>
+                </div>
               </div>
               <div className="form-group">
                 <label className="form-label">Confirm new password</label>
-                <input type="password" name="confirmPassword" className="form-input" placeholder="Confirm your new password" value={profile.confirmPassword} onChange={handleProfileChange} />
+                <div className="settings-password-wrapper">
+                  <input 
+                    type={showConfirmPassword ? "text" : "password"} 
+                    name="confirmPassword" 
+                    className="form-input settings-password-input" 
+                    placeholder="Confirm your new password" 
+                    value={profile.confirmPassword} 
+                    onChange={handleProfileChange} 
+                  />
+                  <i 
+                    className={`bi ${showConfirmPassword ? "bi-eye-slash" : "bi-eye"} settings-password-icon`} 
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  ></i>
+                </div>
                 {passwordMismatch && <span className="password-warning"><i className="bi bi-exclamation-triangle-fill"></i> Passwords do not match</span>}
                 {!passwordMismatch && profile.newPassword !== "" && profile.confirmPassword !== "" && (
                   <span className="password-match"><i className="bi bi-check-circle-fill"></i> Passwords match</span>
