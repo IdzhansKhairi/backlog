@@ -27,6 +27,44 @@
 }
 
 /* Equipment Modal Specifics */
+.app-card {
+  background: #11151a;
+  border-radius: 12px;
+  border: 1px solid #1c2128;
+}
+
+/* ── Global Modal Styles ──────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-container {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  animation: slideUp 0.25s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 .equipment-type-toggle {
   display: flex;
   background: #0d1117;
@@ -99,9 +137,64 @@
   pointer-events: none;
 }
 
+.ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+}
+
 .sidebar-menu {
   background: #090e12 !important;
   border: none !important;
+  flex: 1;
+}
+
+/* Sidebar Settings Bottom Area */
+.sidebar-bottom-action {
+  padding: 16px;
+  border-top: 1px solid #282f35;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-settings-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #8b949e;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  background: transparent;
+}
+
+.sidebar-settings-link i {
+  font-size: 18px;
+}
+
+.sidebar-settings-link:hover {
+  background: #1c2128;
+  color: #fff;
+}
+
+.sidebar-settings-link.active {
+  background: #282f35;
+  color: #fff;
+}
+
+.sidebar-settings-text {
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.sidebar-settings-text.collapsed {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
 }
 
 /* Sidebar Menu Group Title Animation */

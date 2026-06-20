@@ -125,6 +125,14 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
           items={groupedItems}
         />
       </ConfigProvider>
+      
+      {/* Settings at bottom */}
+      <div className="sidebar-bottom-action mt-auto">
+        <Link href="/settings" className={`sidebar-settings-link ${pathname === '/settings' ? 'active' : ''}`}>
+          <i className="bi bi-gear"></i>
+          <span className={`sidebar-settings-text ${siderCollapsed ? 'collapsed' : ''}`}>Settings</span>
+        </Link>
+      </div>
     </Sider>
   );
 }
