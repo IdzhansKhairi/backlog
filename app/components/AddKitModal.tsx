@@ -105,7 +105,7 @@ export default function AddKitModal({ isOpen, onClose, onAdd }: AddKitModalProps
 
   return (
     <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={handleCancel}>
-      <div className={`modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
+      <div className={`modal-container ${isClosing ? "closing" : ""}`} style={{ width: 680, maxWidth: "90vw" }} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="modal-header">
           <h2 className="modal-title">Add Kit to Collection</h2>
