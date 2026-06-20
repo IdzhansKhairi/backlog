@@ -86,6 +86,7 @@ export default function WorkbenchPage() {
   const [diaryNote, setDiaryNote] = useState("");
   const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>(mockEntries);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
 
   const selectedKit = selectedKitId ? kits.find((k) => k.id === selectedKitId)! : null;
 
@@ -231,8 +232,12 @@ export default function WorkbenchPage() {
         </div>
       </div>
 
-      {/* ── Timer Card ───────────────────────────────────────────────────── */}
-      <div className="timer-card">
+      {/* ── Main Dashboard Grid ────────────────────────────────────────────── */}
+      <div className="workbench-grid">
+        {/* ── Left Column: Active Build ────────────────────────────────────── */}
+        <div className="workbench-main-col">
+          {/* ── Timer Card ───────────────────────────────────────────────────── */}
+      <div className={`app-card timer-card ${isRunning ? "recording" : ""}`}>
         <div className="timer-building-label">
           {selectedKit ? `CURRENTLY BUILDING · ${selectedKit.brand.toUpperCase()} ${selectedKit.grade}` : "NO KIT SELECTED"}
         </div>
@@ -256,14 +261,17 @@ export default function WorkbenchPage() {
               <i className="bi bi-play-fill"></i> Start
             </button>
           )}
-          <button className="btn-timer-finish" onClick={handleFinishBuild} disabled={!selectedKit}>
+          <button className="btn-timer-finish" onClick={() => setIsFinishModalOpen(true)} disabled={!selectedKit}>
             <i className="bi bi-flag-fill"></i> Finish Build
           </button>
         </div>
       </div>
+        </div>
 
-      {/* ── Phase Tracker ────────────────────────────────────────────────── */}
-      <div className="app-card">
+        {/* ── Right Column: Phase Tracker ──────────────────────────────────── */}
+        <div className="workbench-side-col">
+          {/* ── Phase Tracker ────────────────────────────────────────────────── */}
+          <div className="app-card">
         <h2 className="phase-tracker-title">Phase Tracker</h2>
 
         <div className="phase-pills">
@@ -273,7 +281,8 @@ export default function WorkbenchPage() {
               className={`phase-pill ${activePhase === phase ? "active" : ""}`}
               onClick={() => setActivePhase(phase)}
             >
-              {phase}
+              <span>{phase}</span>
+              {activePhase === phase && <i className="bi bi-chevron-right"></i>}
             </button>
           ))}
         </div>
@@ -309,9 +318,11 @@ export default function WorkbenchPage() {
           </tbody>
         </table>
       </div>
+        </div>
+      </div>
 
-      {/* ── Build Diary ──────────────────────────────────────────────────── */}
-      <div className="app-card mt-4">
+      {/* ── Bottom Section: Build Diary ──────────────────────────────────── */}
+      <div className="app-card build-diary-card mt-4">
         <h2 className="build-diary-title">
           <i className="bi bi-journal-text me-2"></i> Build Diary Notes
         </h2>
@@ -345,7 +356,27 @@ export default function WorkbenchPage() {
             <div className="empty-diary">No diary entries yet for this kit.</div>
           )}
         </div>
-      </div>
+        </div>
+
+      {/* ── Finish Build Modal ────────────────────────────────────────────── */}
+      {isFinishModalOpen && (
+        <div className="modal-overlay" style={{ zIndex: 1100 }} onClick={() => setIsFinishModalOpen(false)}>
+          <div className="modal-container" style={{ width: 440, padding: 24 }} onClick={(e) => e.stopPropagation()}>
+            <h3 style={{ color: "#fff", margin: "0 0 16px 0", fontSize: 18 }}>Finish Build?</h3>
+            <p style={{ color: "#c9d1d9", fontSize: 14, margin: "0 0 24px 0", lineHeight: 1.5 }}>
+              Are you sure you want to finish building <strong>{selectedKit?.name}</strong>? This will mark the kit as completed and reset the timer.
+            </p>
+            <div className="d-flex justify-content-end gap-3">
+              <button style={{ background: "transparent", border: "1px solid #30363d", color: "#c9d1d9", padding: "8px 16px", borderRadius: 6, fontWeight: "bold", cursor: "pointer" }} onClick={() => setIsFinishModalOpen(false)}>
+                Cancel
+              </button>
+              <button style={{ background: "#da3633", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 6, fontWeight: "bold", cursor: "pointer" }} onClick={() => { setIsFinishModalOpen(false); handleFinishBuild(); }}>
+                Yes, Finish Build
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Toast ────────────────────────────────────────────────────────── */}
       {toastMessage && (

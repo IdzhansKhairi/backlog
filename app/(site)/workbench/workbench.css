@@ -128,14 +128,52 @@
   font-weight: 600;
 }
 
+/* ── Dashboard Grid Layout ─────────────────────────────────────────────────── */
+.workbench-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.workbench-main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.workbench-side-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.workbench-main-col > .app-card,
+.workbench-side-col > .app-card {
+  flex: 1;
+}
+
 /* ── Timer Card ────────────────────────────────────────────────────────────── */
 .timer-card {
-  background: linear-gradient(180deg, #161b22 0%, #090e12 100%);
-  border: 1px solid #583b20;
-  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
   padding: 60px 24px;
   text-align: center;
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.timer-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 100%;
+  background: radial-gradient(circle at top, rgba(242, 129, 35, 0.15) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.timer-card.recording::before {
+  opacity: 1;
 }
 
 .timer-building-label {
@@ -154,17 +192,21 @@
 }
 
 .timer-display {
-  font-family: var(--font-orbitron), 'Arial', sans-serif;
-  font-size: 110px;
+  font-family: var(--font-orbitron), 'Courier New', monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 140px;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 6px;
+  letter-spacing: 2px;
   margin-bottom: 16px;
   line-height: 1;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
 }
 
 .timer-display.running {
   color: #f28123;
+  text-shadow: 0 0 40px rgba(242, 129, 35, 0.4);
 }
 
 .timer-session-label {
@@ -182,50 +224,58 @@
   display: flex;
   justify-content: center;
   gap: 16px;
+  margin-top: 20px;
 }
 
 .btn-timer-start {
   background: #f28123;
   color: #000;
   border: none;
-  border-radius: 8px;
-  padding: 12px 32px;
-  font-size: 15px;
-  font-weight: bold;
+  border-radius: 30px;
+  padding: 14px 40px;
+  font-size: 16px;
+  font-weight: 800;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(242, 129, 35, 0.3);
 }
 
 .btn-timer-start:hover:not(:disabled) {
   background: #d96f1c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(242, 129, 35, 0.4);
 }
 
 .btn-timer-finish {
-  background: #da3633;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 32px;
+  background: transparent;
+  color: #8b949e;
+  border: 2px solid #30363d;
+  border-radius: 30px;
+  padding: 14px 32px;
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   transition: all 0.2s;
 }
 
 .btn-timer-finish:hover:not(:disabled) {
-  background: #b62324;
+  background: #da3633;
+  border-color: #da3633;
+  color: #fff;
 }
 
 .btn-timer-start:disabled,
 .btn-timer-finish:disabled {
-  opacity: 0.4;
+  opacity: 0.3;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* ── Phase Tracker ─────────────────────────────────────────────────────────── */
@@ -270,31 +320,41 @@
 
 .phase-pills {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  gap: 8px;
   margin-bottom: 24px;
+  background: transparent;
+  padding: 0;
+  border: none;
 }
 
 .phase-pill {
-  background: transparent;
+  flex: none;
+  background: #0d1117;
   border: 1px solid #30363d;
-  color: #c9d1d9;
-  padding: 8px 16px;
-  border-radius: 20px;
+  color: #8b949e;
+  padding: 14px 16px;
+  border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.phase-pill:hover {
+.phase-pill:hover:not(.active) {
+  color: #c9d1d9;
   border-color: #8b949e;
-  color: #fff;
 }
 
 .phase-pill.active {
-  background: rgba(242, 129, 35, 0.1);
-  border-color: #f28123;
+  background: linear-gradient(90deg, #161b22 0%, rgba(242, 129, 35, 0.1) 100%);
   color: #f28123;
+  border-color: #f28123;
+  box-shadow: inset 4px 0 0 #f28123;
 }
 
 .phase-name {
@@ -393,29 +453,62 @@
 .diary-entries {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.diary-entries::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 5px;
+  width: 2px;
+  background: #30363d;
 }
 
 .diary-entry-card {
+  position: relative;
   background: transparent;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 16px;
+  padding: 0 0 24px 16px;
+}
+
+.diary-entry-card::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: -19px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #21262d;
+  border: 2px solid #8b949e;
+  z-index: 1;
+}
+
+.diary-entry-card:first-child::before {
+  border-color: #f28123;
+  background: #161b22;
 }
 
 .diary-entry-header {
   color: #8b949e;
   font-size: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   display: flex;
-  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
 }
 
 .diary-entry-content {
   color: #c9d1d9;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
   white-space: pre-wrap;
+  background: #0d1117;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #30363d;
 }
 
 .empty-diary {
@@ -425,6 +518,7 @@
   padding: 32px 0;
   border: 1px dashed #30363d;
   border-radius: 8px;
+  margin-left: -20px;
 }
 
 /* ── Toast Notification ────────────────────────────────────────────────────── */
