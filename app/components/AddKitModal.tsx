@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 
 // ─── Options for dropdowns ───────────────────────────────────────────────────
 const BRAND_OPTIONS = ["Bandai", "Daban", "Fenrir", "Suyata", "Kotobukiya", "Other"];
@@ -39,6 +40,10 @@ export default function AddKitModal({ isOpen, onClose, onAdd }: AddKitModalProps
   const [alreadyBuilt, setAlreadyBuilt] = useState(false);
   const [currentStatus, setCurrentStatus] = useState("backlog");
   const [estimatedHours, setEstimatedHours] = useState("");
+
+  useEscapeKey(() => {
+    if (isOpen) onClose();
+  }, isOpen);
 
   const handleCurrencyChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
     // Remove all non-digits

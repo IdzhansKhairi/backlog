@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./settings.css";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 
 type TabKey = "Profile" | "Brands" | "Grades & Scales" | "Retailers";
 
@@ -47,13 +48,15 @@ export default function SettingsPage() {
     setProfile(initialProfile);
   };
 
-  const handleSave = () => {
+  const handleSaveClick = () => {
     if (!canSave) return;
+    setIsSaveProfileModalOpen(true);
+  };
+
+  const executeSaveProfile = () => {
     setToastMessage("Profile updated successfully!");
-    // In a real app, you would make an API call here.
-    // For now, let's just reset the form to the new state (excluding passwords)
-    // Actually, to simulate success, we can just clear passwords and keep changes.
     setProfile(prev => ({ ...prev, newPassword: "", confirmPassword: "" }));
+    setIsSaveProfileModalOpen(false);
   };
 
   // Mock Data for Lists
@@ -94,6 +97,13 @@ export default function SettingsPage() {
   const [editingItem, setEditingItem] = useState<ListItem | null>(null);
   const [editItemName, setEditItemName] = useState("");
   const [deletingItem, setDeletingItem] = useState<{ listType: TabKey, item: ListItem } | null>(null);
+  const [isSaveProfileModalOpen, setIsSaveProfileModalOpen] = useState(false);
+
+  useEscapeKey(() => {
+    if (editingItem) setEditingItem(null);
+    if (deletingItem) setDeletingItem(null);
+    if (isSaveProfileModalOpen) setIsSaveProfileModalOpen(false);
+  }, !!editingItem || !!deletingItem || isSaveProfileModalOpen);
 
   const handleAddListItem = (listType: TabKey) => {
     if (!newItemName.trim()) return;
@@ -242,7 +252,7 @@ export default function SettingsPage() {
 
             <div className="settings-actions">
               <button className="btn-reset" onClick={handleReset} disabled={!isChanged}>Reset</button>
-              <button className="btn-save" onClick={handleSave} disabled={!canSave}>Save changes</button>
+              <button className="btn-save" onClick={handleSaveClick} disabled={!canSave}>Save changes</button>
             </div>
           </div>
         )}
@@ -315,7 +325,31 @@ export default function SettingsPage() {
         </div>
       )}
 
-      {/* ── Rename Modal ── */}
+      {/* ── Save Profile Modal ── */}
+      {isSaveProfileModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsSaveProfileModalOpen(false)}>
+          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header align-items-start">
+              <div className="d-flex flex-column gap-1">
+                <h2 className="modal-title">Confirm Profile Changes</h2>
+                <div style={{ color: "#8b949e", fontSize: "13px", fontWeight: 500 }}>Update your personal information</div>
+              </div>
+              <button className="modal-close-btn" onClick={() => setIsSaveProfileModalOpen(false)}>
+                <i className="bi bi-x-lg"></i>
+              </button>
+            </div>
+            <div className="modal-body">
+              <p style={{ margin: 0, color: "#c9d1d9" }}>Are you sure you want to save these changes to your profile?</p>
+            </div>
+            <div className="modal-footer">
+              <button className="modal-cancel-btn" onClick={() => setIsSaveProfileModalOpen(false)}>Cancel</button>
+              <button className="modal-submit-btn" onClick={executeSaveProfile}>Yes, Save Changes</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Toast Notification ── */}
       {editingItem && (
         <div className="modal-overlay" onClick={() => setEditingItem(null)}>
           <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>

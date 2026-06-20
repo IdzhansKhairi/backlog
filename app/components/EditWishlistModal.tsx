@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import "@/app/(site)/collection/collection.css";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 
 // ─── Options for dropdowns ───────────────────────────────────────────────────
 const KIT_BRAND_OPTIONS = ["Bandai", "Daban", "Fenrir", "Suyata", "Kotobukiya", "Other"];
@@ -21,7 +22,12 @@ export default function EditWishlistModal({ isOpen, onClose, onEdit, item }: Edi
   const [grade, setGrade] = useState("");
   const [price, setPrice] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
+  const [notes, setNotes] = useState("");
   const [boxArtUrl, setBoxArtUrl] = useState("");
+
+  useEscapeKey(() => {
+    if (isOpen) onClose();
+  }, isOpen);
 
   useEffect(() => {
     if (item) {

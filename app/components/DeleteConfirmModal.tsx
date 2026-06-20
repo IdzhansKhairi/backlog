@@ -2,6 +2,7 @@
 
 import React from "react";
 import "@/app/(site)/collection/collection.css";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;
@@ -13,6 +14,10 @@ interface DeleteConfirmModalProps {
 }
 
 export default function DeleteConfirmModal({ isOpen, onClose, onConfirm, item, title = "Remove Kit?", entityName = "collection" }: DeleteConfirmModalProps) {
+  useEscapeKey(() => {
+    if (isOpen) onClose();
+  }, isOpen);
+
   if (!isOpen || !item) return null;
 
   return (

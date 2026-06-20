@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 import "@/app/(site)/collection/collection.css";
 
 // ─── Options for dropdowns ───────────────────────────────────────────────────
@@ -36,6 +37,10 @@ export default function EditKitModal({ isOpen, onClose, onSave, kit }: EditKitMo
   const [buildStartDate, setBuildStartDate] = useState("");
   const [buildFinishDate, setBuildFinishDate] = useState("");
   const [boxArtUrl, setBoxArtUrl] = useState("");
+
+  useEscapeKey(() => {
+    if (isOpen) onClose();
+  }, isOpen);
 
   // Populate form when kit changes
   useEffect(() => {

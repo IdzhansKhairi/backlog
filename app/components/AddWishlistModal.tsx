@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import "@/app/(site)/collection/collection.css";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 
 // ─── Options for dropdowns ───────────────────────────────────────────────────
 const KIT_BRAND_OPTIONS = ["Bandai", "Daban", "Fenrir", "Suyata", "Kotobukiya", "Other"];
@@ -18,6 +19,10 @@ interface AddWishlistModalProps {
 
 export default function AddWishlistModal({ isOpen, onClose, onAdd }: AddWishlistModalProps) {
   const [type, setType] = useState<WishlistType>("model-kit");
+
+  useEscapeKey(() => {
+    if (isOpen) onClose();
+  }, isOpen);
 
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("Bandai");

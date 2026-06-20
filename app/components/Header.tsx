@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Layout, Avatar } from "antd";
 import { usePathname, useRouter } from "next/navigation";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 import "./components.css";
 
 const { Header: AntHeader } = Layout;
@@ -11,6 +12,10 @@ export default function Header({ collapsed, setCollapsedAction }: { collapsed: b
     const pathname = usePathname();
     const router = useRouter();
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+    useEscapeKey(() => {
+        if (showLogoutModal) setShowLogoutModal(false);
+    }, showLogoutModal);
 
     const getPageTitle = () => {
         if (pathname.startsWith("/dashboard")) return "Dashboard";

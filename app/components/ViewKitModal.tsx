@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { STATUS_CONFIG } from "@/app/constants/status";
 import "@/app/(site)/collection/collection.css";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 
 interface ViewKitModalProps {
   isOpen: boolean;
@@ -60,6 +61,12 @@ const getMockDetails = (kit: any) => {
 };
 
 export default function ViewKitModal({ isOpen, onClose, onEdit, onDelete, kit }: ViewKitModalProps) {
+  const [activeTab, setActiveTab] = useState<"details" | "logs">("details");
+
+  useEscapeKey(() => {
+    if (isOpen) onClose();
+  }, isOpen);
+
   if (!isOpen || !kit) return null;
 
   const statusConfig = STATUS_CONFIG[kit.status] || STATUS_CONFIG["backlog"];

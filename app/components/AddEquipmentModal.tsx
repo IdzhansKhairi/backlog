@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "@/app/(site)/collection/collection.css";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 
 const BRAND_OPTIONS = ["God Hand", "DSPIAE", "Mr. Hobby", "Tamiya", "Olfa", "Bandai", "Kosmos", "Other"];
 const SOURCE_OPTIONS = ["Shopee", "Hobbylink Japan", "Amiami", "Gundam Place", "Oh My Gundam", "Other"];
@@ -31,6 +32,10 @@ export default function AddEquipmentModal({ isOpen, onClose, onAdd }: AddEquipme
   const [quantity, setQuantity] = useState("1");
   const [source, setSource] = useState("Shopee");
   const [linkedKit, setLinkedKit] = useState("Unlinked");
+
+  useEscapeKey(() => {
+    if (isOpen) onClose();
+  }, isOpen);
 
   const handleCurrencyChange = (value: string) => {
     // Remove all non-digits

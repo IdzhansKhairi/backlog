@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import "@/app/(site)/collection/collection.css";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 
 const SOURCE_OPTIONS = ["Shopee", "Hobbylink Japan", "Amiami", "Gundam Place", "Oh My Gundam", "Other"];
 const LINKED_KIT_OPTIONS = ["Unlinked", "MGEX Strike Freedom Gundam", "RG Nu Gundam Ver. Ka", "Nightingale Fenrir 1/100"];
@@ -24,6 +25,10 @@ export default function AcquiredModal({ isOpen, onClose, onAcquire, item }: Acqu
   const today = new Date();
   const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
   const [purchaseDate, setPurchaseDate] = useState(defaultDate);
+
+  useEscapeKey(() => {
+    if (isOpen) onClose();
+  }, isOpen);
 
   useEffect(() => {
     if (item) {

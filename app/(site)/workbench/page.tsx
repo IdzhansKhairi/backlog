@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { STATUS_CONFIG } from "@/app/constants/status";
 import "./workbench.css";
+import { useEscapeKey } from "@/app/hooks/useEscapeKey";
 
 // ─── Mock Data ───────────────────────────────────────────────────────────────
 type KitStatus = "backlog" | "in-progress" | "completed";
@@ -87,6 +88,10 @@ export default function WorkbenchPage() {
   const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>(mockEntries);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
+
+  useEscapeKey(() => {
+    if (isFinishModalOpen) setIsFinishModalOpen(false);
+  }, isFinishModalOpen);
 
   const selectedKit = selectedKitId ? kits.find((k) => k.id === selectedKitId)! : null;
 
