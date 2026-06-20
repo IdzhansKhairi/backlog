@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { STATUS_CONFIG } from "@/app/constants/status";
 import "@/app/(site)/collection/collection.css";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 
 interface ViewKitModalProps {
   isOpen: boolean;
@@ -60,21 +61,29 @@ const getMockDetails = (kit: any) => {
   return {}; // Backlog has no extra details
 };
 
-export default function ViewKitModal({ isOpen, onClose, onEdit, onDelete, kit }: ViewKitModalProps) {
+export default function ViewKitModal({ isOpen, onClose, onEdit, onDelete, kit: propKit }: ViewKitModalProps) {
   const [activeTab, setActiveTab] = useState<"details" | "logs">("details");
+  const { isRendered, isClosing } = useModalState(isOpen);
+  const [cachedKit, setCachedKit] = useState(propKit);
+
+  useEffect(() => {
+    if (propKit) setCachedKit(propKit);
+  }, [propKit]);
 
   useEscapeKey(() => {
     if (isOpen) onClose();
   }, isOpen);
 
-  if (!isOpen || !kit) return null;
+  const kit = propKit || cachedKit;
+
+  if (!isRendered || !kit) return null;
 
   const statusConfig = STATUS_CONFIG[kit.status] || STATUS_CONFIG["backlog"];
   const details = getMockDetails(kit);
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-container view-modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={onClose}>
+      <div className={`modal-container view-modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="view-modal-header">
           <div>

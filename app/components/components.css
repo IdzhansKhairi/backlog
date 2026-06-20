@@ -77,6 +77,36 @@
   }
 }
 
+.modal-overlay.closing {
+  animation: fadeOut 0.25s ease forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.modal-container.closing {
+  animation: slideDown 0.25s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+}
+
 .equipment-type-toggle {
   display: flex;
   background: #0d1117;

@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "@/app/(site)/collection/collection.css";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;
@@ -14,24 +15,33 @@ interface DeleteConfirmModalProps {
 }
 
 export default function DeleteConfirmModal({ isOpen, onClose, onConfirm, item, title = "Remove Kit?", entityName = "collection" }: DeleteConfirmModalProps) {
+  const { isRendered, isClosing } = useModalState(isOpen);
+  const [cachedItem, setCachedItem] = useState(item);
+
+  useEffect(() => {
+    if (item) setCachedItem(item);
+  }, [item]);
+
   useEscapeKey(() => {
     if (isOpen) onClose();
   }, isOpen);
 
-  if (!isOpen || !item) return null;
+  const displayItem = item || cachedItem;
+
+  if (!isRendered || !displayItem) return null;
 
   return (
-    <div className="modal-overlay" style={{ zIndex: 1100 }} onClick={onClose}>
-      <div className="modal-container delete-modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={`modal-overlay ${isClosing ? "closing" : ""}`} style={{ zIndex: 1100 }} onClick={onClose}>
+      <div className={`modal-container delete-modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         <h3 className="delete-modal-title">{title}</h3>
         <p className="delete-modal-text">
-          This will permanently remove <strong>{item.name}</strong> from your {entityName}. This action cannot be undone.
+          This will permanently remove <strong>{displayItem.name}</strong> from your {entityName}. This action cannot be undone.
         </p>
         <div className="delete-modal-footer">
           <button className="delete-cancel-btn" onClick={onClose}>
             Cancel
           </button>
-          <button className="delete-confirm-btn" onClick={() => onConfirm(item)}>
+          <button className="delete-confirm-btn" onClick={() => onConfirm(displayItem)}>
             Delete
           </button>
         </div>

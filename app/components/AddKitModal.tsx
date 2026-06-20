@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 
 // ─── Options for dropdowns ───────────────────────────────────────────────────
 const BRAND_OPTIONS = ["Bandai", "Daban", "Fenrir", "Suyata", "Kotobukiya", "Other"];
@@ -29,6 +30,7 @@ function formatDateDisplay(dateStr: string) {
 }
 
 export default function AddKitModal({ isOpen, onClose, onAdd }: AddKitModalProps) {
+  const { isRendered, isClosing } = useModalState(isOpen);
   const [kitName, setKitName] = useState("");
   const [brand, setBrand] = useState("Bandai");
   const [grade, setGrade] = useState("MG");
@@ -99,11 +101,11 @@ export default function AddKitModal({ isOpen, onClose, onAdd }: AddKitModalProps
     onClose();
   };
 
-  if (!isOpen) return null;
+  if (!isRendered) return null;
 
   return (
-    <div className="modal-overlay" onClick={handleCancel}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={handleCancel}>
+      <div className={`modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="modal-header">
           <h2 className="modal-title">Add Kit to Collection</h2>

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { STATUS_CONFIG } from "@/app/constants/status";
 import "./workbench.css";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 
 // ─── Mock Data ───────────────────────────────────────────────────────────────
 type KitStatus = "backlog" | "in-progress" | "completed";
@@ -88,6 +89,7 @@ export default function WorkbenchPage() {
   const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>(mockEntries);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
+  const { isRendered: isFinishRendered, isClosing: isFinishClosing } = useModalState(isFinishModalOpen);
 
   useEscapeKey(() => {
     if (isFinishModalOpen) setIsFinishModalOpen(false);
@@ -364,9 +366,9 @@ export default function WorkbenchPage() {
         </div>
 
       {/* ── Finish Build Modal ────────────────────────────────────────────── */}
-      {isFinishModalOpen && (
-        <div className="modal-overlay" style={{ zIndex: 1100 }} onClick={() => setIsFinishModalOpen(false)}>
-          <div className="modal-container" style={{ width: 440, padding: 24 }} onClick={(e) => e.stopPropagation()}>
+      {isFinishRendered && (
+        <div className={`modal-overlay ${isFinishClosing ? "closing" : ""}`} style={{ zIndex: 1100 }} onClick={() => setIsFinishModalOpen(false)}>
+          <div className={`modal-container ${isFinishClosing ? "closing" : ""}`} style={{ width: 440, padding: 24 }} onClick={(e) => e.stopPropagation()}>
             <h3 style={{ color: "#fff", margin: "0 0 16px 0", fontSize: 18 }}>Finish Build?</h3>
             <p style={{ color: "#c9d1d9", fontSize: 14, margin: "0 0 24px 0", lineHeight: 1.5 }}>
               Are you sure you want to finish building <strong>{selectedKit?.name}</strong>? This will mark the kit as completed and reset the timer.

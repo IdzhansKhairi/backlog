@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 import "@/app/(site)/collection/collection.css";
 
 // ─── Options for dropdowns ───────────────────────────────────────────────────
@@ -27,6 +28,13 @@ function getStatusLabel(status: string) {
 }
 
 export default function EditKitModal({ isOpen, onClose, onSave, kit }: EditKitModalProps) {
+  const { isRendered, isClosing } = useModalState(isOpen);
+  const [cachedKit, setCachedKit] = useState(kit);
+
+  useEffect(() => {
+    if (kit) setCachedKit(kit);
+  }, [kit]);
+
   const [kitName, setKitName] = useState("");
   const [brand, setBrand] = useState("Bandai");
   const [grade, setGrade] = useState("MG");
@@ -75,16 +83,18 @@ export default function EditKitModal({ isOpen, onClose, onSave, kit }: EditKitMo
     onSave(updatedKit);
   };
 
-  if (!isOpen || !kit) return null;
+  const displayKit = kit || cachedKit;
+
+  if (!isRendered || !displayKit) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-container edit-modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={onClose}>
+      <div className={`modal-container edit-modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="edit-modal-header">
           <div>
-            <h2 className="edit-modal-title">{kit.name}</h2>
-            <div className="edit-modal-subtitle">{kit.brand} · {kit.grade}</div>
+            <h2 className="edit-modal-title">{displayKit.name}</h2>
+            <div className="edit-modal-subtitle">{displayKit.brand} · {displayKit.grade}</div>
           </div>
           <button className="modal-close-btn" onClick={onClose}>
             <i className="bi bi-x-lg"></i>

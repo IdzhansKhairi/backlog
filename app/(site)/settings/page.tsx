@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import "./settings.css";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 
 type TabKey = "Profile" | "Brands" | "Grades & Scales" | "Retailers";
 
@@ -98,6 +99,18 @@ export default function SettingsPage() {
   const [editItemName, setEditItemName] = useState("");
   const [deletingItem, setDeletingItem] = useState<{ listType: TabKey, item: ListItem } | null>(null);
   const [isSaveProfileModalOpen, setIsSaveProfileModalOpen] = useState(false);
+
+  const { isRendered: isSaveRendered, isClosing: isSaveClosing } = useModalState(isSaveProfileModalOpen);
+  
+  const { isRendered: isEditRendered, isClosing: isEditClosing } = useModalState(!!editingItem);
+  const [cachedEditingItem, setCachedEditingItem] = useState(editingItem);
+  useEffect(() => { if (editingItem) setCachedEditingItem(editingItem); }, [editingItem]);
+  const activeEditingItem = editingItem || cachedEditingItem;
+
+  const { isRendered: isDeleteRendered, isClosing: isDeleteClosing } = useModalState(!!deletingItem);
+  const [cachedDeletingItem, setCachedDeletingItem] = useState(deletingItem);
+  useEffect(() => { if (deletingItem) setCachedDeletingItem(deletingItem); }, [deletingItem]);
+  const activeDeletingItem = deletingItem || cachedDeletingItem;
 
   useEscapeKey(() => {
     if (editingItem) setEditingItem(null);
@@ -326,9 +339,9 @@ export default function SettingsPage() {
       )}
 
       {/* ── Save Profile Modal ── */}
-      {isSaveProfileModalOpen && (
-        <div className="modal-overlay" onClick={() => setIsSaveProfileModalOpen(false)}>
-          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+      {isSaveRendered && (
+        <div className={`modal-overlay ${isSaveClosing ? "closing" : ""}`} onClick={() => setIsSaveProfileModalOpen(false)}>
+          <div className={`modal-container ${isSaveClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
             <div className="modal-header align-items-start">
               <div className="d-flex flex-column gap-1">
                 <h2 className="modal-title">Confirm Profile Changes</h2>
@@ -349,10 +362,10 @@ export default function SettingsPage() {
         </div>
       )}
 
-      {/* ── Toast Notification ── */}
-      {editingItem && (
-        <div className="modal-overlay" onClick={() => setEditingItem(null)}>
-          <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
+      {/* ── Rename Modal ── */}
+      {isEditRendered && activeEditingItem && (
+        <div className={`modal-overlay ${isEditClosing ? "closing" : ""}`} onClick={() => setEditingItem(null)}>
+          <div className={`modal-container ${isEditClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
 
             <div className="modal-header d-flex align-items-start justify-content-between">
               <h2 className="modal-title" style={{ fontSize: 18, color: "#fff", margin: 0 }}>
@@ -377,7 +390,7 @@ export default function SettingsPage() {
                 />
               </div>
               <p style={{ color: "#8b949e", fontSize: 13, marginTop: 12, marginBottom: 0 }}>
-                Existing records using "{editingItem.name}" will be updated.
+                Existing records using "{activeEditingItem.name}" will be updated.
               </p>
             </div>
 
@@ -388,14 +401,14 @@ export default function SettingsPage() {
               <button
                 className="modal-submit-btn"
                 onClick={handleSaveEdit}
-                disabled={!editItemName.trim() || editItemName.trim() === editingItem.name}
+                disabled={!editItemName.trim() || editItemName.trim() === activeEditingItem.name}
                 style={{
-                  background: (!editItemName.trim() || editItemName.trim() === editingItem.name) ? "#3d3020" : "#f28123",
+                  background: (!editItemName.trim() || editItemName.trim() === activeEditingItem.name) ? "#3d3020" : "#f28123",
                   border: "none",
-                  color: (!editItemName.trim() || editItemName.trim() === editingItem.name) ? "#8b7a5e" : "#000",
+                  color: (!editItemName.trim() || editItemName.trim() === activeEditingItem.name) ? "#8b7a5e" : "#000",
                   padding: "8px 16px",
                   borderRadius: 6,
-                  cursor: (!editItemName.trim() || editItemName.trim() === editingItem.name) ? "not-allowed" : "pointer",
+                  cursor: (!editItemName.trim() || editItemName.trim() === activeEditingItem.name) ? "not-allowed" : "pointer",
                   fontWeight: 600
                 }}
               >
@@ -407,9 +420,9 @@ export default function SettingsPage() {
       )}
 
       {/* ── Delete Confirmation Modal ── */}
-      {deletingItem && (
-        <div className="modal-overlay" onClick={() => setDeletingItem(null)}>
-          <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
+      {isDeleteRendered && activeDeletingItem && (
+        <div className={`modal-overlay ${isDeleteClosing ? "closing" : ""}`} onClick={() => setDeletingItem(null)}>
+          <div className={`modal-container ${isDeleteClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
             <div className="modal-header d-flex align-items-start justify-content-between mb-3">
               <h2 className="modal-title" style={{ fontSize: 18, color: "#fff", margin: 0 }}>
                 Delete item
@@ -421,7 +434,7 @@ export default function SettingsPage() {
 
             <div className="modal-body">
               <p style={{ color: "#c9d1d9", fontSize: 14, margin: 0 }}>
-                Are you sure you want to delete <strong>"{deletingItem.item.name}"</strong>? This action cannot be undone.
+                Are you sure you want to delete <strong>"{activeDeletingItem.item.name}"</strong>? This action cannot be undone.
               </p>
             </div>
 

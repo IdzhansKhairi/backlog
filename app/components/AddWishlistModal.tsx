@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import "@/app/(site)/collection/collection.css";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 
 // ─── Options for dropdowns ───────────────────────────────────────────────────
 const KIT_BRAND_OPTIONS = ["Bandai", "Daban", "Fenrir", "Suyata", "Kotobukiya", "Other"];
@@ -18,6 +19,7 @@ interface AddWishlistModalProps {
 }
 
 export default function AddWishlistModal({ isOpen, onClose, onAdd }: AddWishlistModalProps) {
+  const { isRendered, isClosing } = useModalState(isOpen);
   const [type, setType] = useState<WishlistType>("model-kit");
 
   useEscapeKey(() => {
@@ -107,13 +109,13 @@ export default function AddWishlistModal({ isOpen, onClose, onAdd }: AddWishlist
     }
   };
 
-  if (!isOpen) return null;
+  if (!isRendered) return null;
 
   const brandOptions = type === "model-kit" ? KIT_BRAND_OPTIONS : EQUIP_BRAND_OPTIONS;
 
   return (
-    <div className="modal-overlay" onClick={handleCancel}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={handleCancel}>
+      <div className={`modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="modal-header">
           <h2 className="modal-title">Add to Wishlist</h2>

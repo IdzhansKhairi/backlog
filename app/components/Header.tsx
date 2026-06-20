@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Layout, Avatar } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 import "./components.css";
 
 const { Header: AntHeader } = Layout;
@@ -12,6 +13,7 @@ export default function Header({ collapsed, setCollapsedAction }: { collapsed: b
     const pathname = usePathname();
     const router = useRouter();
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const { isRendered: isLogoutRendered, isClosing: isLogoutClosing } = useModalState(showLogoutModal);
 
     useEscapeKey(() => {
         if (showLogoutModal) setShowLogoutModal(false);
@@ -58,9 +60,9 @@ export default function Header({ collapsed, setCollapsedAction }: { collapsed: b
             </div>
 
             {/* ── Logout Confirmation Modal ── */}
-            {showLogoutModal && (
-                <div className="modal-overlay" onClick={() => setShowLogoutModal(false)}>
-                    <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
+            {isLogoutRendered && (
+                <div className={`modal-overlay ${isLogoutClosing ? "closing" : ""}`} onClick={() => setShowLogoutModal(false)}>
+                    <div className={`modal-container ${isLogoutClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
                         <div className="modal-header lh-base d-flex align-items-start justify-content-between mb-3 p-0">
                             <h2 className="modal-title" style={{ fontSize: 18, color: "#fff", margin: 0 }}>
                                 Log out

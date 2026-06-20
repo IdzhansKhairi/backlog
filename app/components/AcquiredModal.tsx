@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import "@/app/(site)/collection/collection.css";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 
 const SOURCE_OPTIONS = ["Shopee", "Hobbylink Japan", "Amiami", "Gundam Place", "Oh My Gundam", "Other"];
 const LINKED_KIT_OPTIONS = ["Unlinked", "MGEX Strike Freedom Gundam", "RG Nu Gundam Ver. Ka", "Nightingale Fenrir 1/100"];
@@ -15,6 +16,13 @@ interface AcquiredModalProps {
 }
 
 export default function AcquiredModal({ isOpen, onClose, onAcquire, item }: AcquiredModalProps) {
+  const { isRendered, isClosing } = useModalState(isOpen);
+  const [cachedItem, setCachedItem] = useState(item);
+
+  useEffect(() => {
+    if (item) setCachedItem(item);
+  }, [item]);
+
   const [price, setPrice] = useState("");
   const [source, setSource] = useState("Shopee");
   const [quantity, setQuantity] = useState("1");
@@ -85,19 +93,21 @@ export default function AcquiredModal({ isOpen, onClose, onAcquire, item }: Acqu
     onClose();
   };
 
-  if (!isOpen || !item) return null;
+  const displayItem = item || cachedItem;
 
-  const isModelKit = item.type === "MODEL KIT";
-  const isTool = item.type === "TOOL";
-  const isAccessory = item.type === "ACCESSORY";
+  if (!isRendered || !displayItem) return null;
+
+  const isModelKit = displayItem.type === "MODEL KIT";
+  const isTool = displayItem.type === "TOOL";
+  const isAccessory = displayItem.type === "ACCESSORY";
 
   const typeLabel = isModelKit ? "Model Kit" : isTool ? "Tool" : "Accessory";
-  const subtitle = `${item.brand} · ${typeLabel} · ${item.name}`;
+  const subtitle = `${displayItem.brand} · ${typeLabel} · ${displayItem.name}`;
   const buttonLabel = isModelKit ? "Move to Collection" : "Move to Equipment";
 
   return (
-    <div className="modal-overlay" onClick={handleCancel}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={handleCancel}>
+      <div className={`modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="modal-header align-items-start">
           <div className="d-flex flex-column gap-1">

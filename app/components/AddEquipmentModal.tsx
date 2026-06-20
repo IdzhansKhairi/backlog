@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import "@/app/(site)/collection/collection.css";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 
 const BRAND_OPTIONS = ["God Hand", "DSPIAE", "Mr. Hobby", "Tamiya", "Olfa", "Bandai", "Kosmos", "Other"];
 const SOURCE_OPTIONS = ["Shopee", "Hobbylink Japan", "Amiami", "Gundam Place", "Oh My Gundam", "Other"];
@@ -23,6 +24,7 @@ function getTodayString() {
 }
 
 export default function AddEquipmentModal({ isOpen, onClose, onAdd }: AddEquipmentModalProps) {
+  const { isRendered, isClosing } = useModalState(isOpen);
   const [type, setType] = useState<"tool" | "accessory">("tool");
   
   const [brand, setBrand] = useState("God Hand");
@@ -90,11 +92,11 @@ export default function AddEquipmentModal({ isOpen, onClose, onAdd }: AddEquipme
     setLinkedKit("Unlinked");
   };
 
-  if (!isOpen) return null;
+  if (!isRendered) return null;
 
   return (
-    <div className="modal-overlay" onClick={handleCancel}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={handleCancel}>
+      <div className={`modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="modal-header">
           <h2 className="modal-title">Add Asset</h2>

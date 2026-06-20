@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import "@/app/(site)/collection/collection.css";
 import { useEscapeKey } from "@/app/hooks/useEscapeKey";
+import { useModalState } from "@/app/hooks/useModalState";
 
 // ─── Options for dropdowns ───────────────────────────────────────────────────
 const KIT_BRAND_OPTIONS = ["Bandai", "Daban", "Fenrir", "Suyata", "Kotobukiya", "Other"];
@@ -17,6 +18,13 @@ interface EditWishlistModalProps {
 }
 
 export default function EditWishlistModal({ isOpen, onClose, onEdit, item }: EditWishlistModalProps) {
+  const { isRendered, isClosing } = useModalState(isOpen);
+  const [cachedItem, setCachedItem] = useState(item);
+
+  useEffect(() => {
+    if (item) setCachedItem(item);
+  }, [item]);
+
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [grade, setGrade] = useState("");
@@ -87,18 +95,20 @@ export default function EditWishlistModal({ isOpen, onClose, onEdit, item }: Edi
     onClose();
   };
 
-  if (!isOpen || !item) return null;
+  const displayItem = item || cachedItem;
 
-  const isModelKit = item.type === "MODEL KIT";
-  const isTool = item.type === "TOOL";
+  if (!isRendered || !displayItem) return null;
+
+  const isModelKit = displayItem.type === "MODEL KIT";
+  const isTool = displayItem.type === "TOOL";
   const brandOptions = isModelKit ? KIT_BRAND_OPTIONS : EQUIP_BRAND_OPTIONS;
   
   // Format subtitle string
   const subtitle = isModelKit ? "Model Kit" : isTool ? "Tool" : "Accessory";
 
   return (
-    <div className="modal-overlay" onClick={handleCancel}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={handleCancel}>
+      <div className={`modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="modal-header align-items-start">
           <div className="d-flex flex-column gap-1">
