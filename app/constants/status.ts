@@ -7,9 +7,9 @@ export const STATUS_CONFIG: Record<string, { label: string, color: string, bg: s
   },
   'in-progress': {
     label: 'IN PROGRESS',
-    color: '#38bdf8',
-    bg: 'rgba(56, 189, 248, 0.1)',
-    border: 'rgba(56, 189, 248, 0.2)'
+    color: '#f28123',
+    bg: 'rgba(242, 129, 35, 0.1)',
+    border: 'rgba(242, 129, 35, 0.2)'
   },
   'backlog': {
     label: 'BACKLOG',

@@ -104,6 +104,21 @@
   border: none !important;
 }
 
+/* Sidebar Menu Group Title Animation */
+.sidebar-menu .ant-menu-item-group-title {
+  transition: max-height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+  overflow: hidden !important;
+}
+
+.ant-layout-sider-collapsed .sidebar-menu .ant-menu-item-group-title {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 /* Header Styles */
 .site-header {
   padding: 0 24px !important;

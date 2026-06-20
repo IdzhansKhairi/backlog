@@ -30,49 +30,49 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
     }
   }, [collapsed]);
 
-  const menuItems = [
+  const flatItems = [
     {
-      type: "group",
+      key: "/dashboard",
+      icon: <i className="bi bi-grid-1x2" style={{ fontSize: "1.1rem" }}></i>,
+      label: <Link href="/dashboard">Dashboard</Link>,
+    },
+    {
+      key: "/analytics",
+      icon: <i className="bi bi-graph-up" style={{ fontSize: "1.1rem" }}></i>,
+      label: <Link href="/analytics">Financial Analytics</Link>,
+    },
+    {
+      key: "/collection",
+      icon: <i className="bi bi-collection" style={{ fontSize: "1.1rem" }}></i>,
+      label: <Link href="/collection">Collection</Link>,
+    },
+    {
+      key: "/equipment",
+      icon: <i className="bi bi-hammer" style={{ fontSize: "1.1rem" }}></i>,
+      label: <Link href="/equipment">Equipment</Link>,
+    },
+    {
+      key: "/workbench",
+      icon: <i className="bi bi-wrench" style={{ fontSize: "1.1rem" }}></i>,
+      label: <Link href="/workbench">Workbench</Link>,
+    },
+  ];
+
+  const groupedItems = [
+    {
+      type: "group" as const,
       label: "Overview",
-      children: [
-        {
-          key: "/dashboard",
-          icon: <i className="bi bi-grid-1x2" style={{ fontSize: "1.1rem" }}></i>,
-          label: <Link href="/dashboard">Dashboard</Link>,
-        },
-        {
-          key: "/analytics",
-          icon: <i className="bi bi-graph-up" style={{ fontSize: "1.1rem" }}></i>,
-          label: <Link href="/analytics">Financial Analytics</Link>,
-        },
-      ],
+      children: [flatItems[0], flatItems[1]],
     },
     {
-      type: "group",
+      type: "group" as const,
       label: "Inventory",
-      children: [
-        {
-          key: "/collection",
-          icon: <i className="bi bi-collection" style={{ fontSize: "1.1rem" }}></i>,
-          label: <Link href="/collection">Collection</Link>,
-        },
-        {
-          key: "/equipment",
-          icon: <i className="bi bi-hammer" style={{ fontSize: "1.1rem" }}></i>,
-          label: <Link href="/equipment">Equipment</Link>,
-        },
-      ],
+      children: [flatItems[2], flatItems[3]],
     },
     {
-      type: "group",
+      type: "group" as const,
       label: "Activity",
-      children: [
-        {
-          key: "/workbench",
-          icon: <i className="bi bi-wrench" style={{ fontSize: "1.1rem" }}></i>,
-          label: <Link href="/workbench">Workbench</Link>,
-        },
-      ],
+      children: [flatItems[4]],
     },
   ];
 
@@ -80,15 +80,13 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
     <Sider
       collapsible
       collapsed={siderCollapsed}
-      trigger={null} /* Hide default bottom trigger */
-      width={250} /* <-- Use the width prop here */
+      trigger={null}
+      width={250}
       theme="dark"
       className="sidebar-container"
     >
-      {/* Your custom logo */}
       <div className="pt-2 pb-3 sidebar-logo-container">
         <div className="my-2 sidebar-logo-wrapper">
-          {/* Full logo (with text) */}
           <Image
             src="/images/backlog-logo-transparent.png"
             alt="Backlog Logo Full"
@@ -96,7 +94,6 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
             height={500}
             className={`sidebar-logo-full ${showSmallLogo ? 'logo-hidden' : 'logo-visible'}`}
           />
-          {/* Small logo (icon only) */}
           <Image
             src="/images/backlog-logo.png"
             alt="Backlog Logo Small"
@@ -125,7 +122,7 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
           theme="dark"
           selectedKeys={[pathname]}
           mode="inline"
-          items={menuItems}
+          items={groupedItems}
         />
       </ConfigProvider>
     </Sider>
