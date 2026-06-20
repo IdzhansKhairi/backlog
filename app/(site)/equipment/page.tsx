@@ -92,7 +92,7 @@ export default function EquipmentPage() {
 
       {/* ── Stats Grid ───────────────────────────────────────────────────── */}
       <div className="equipment-stats-grid">
-        <div className="equipment-stat-card">
+        <div className="app-card equipment-stat-card">
           <div className="equipment-stat-header">
             <i className="bi bi-wrench-adjustable" style={{ fontSize: 14 }}></i>
             TOTAL SPENT ON TOOLS
@@ -101,7 +101,7 @@ export default function EquipmentPage() {
           <p className="equipment-stat-subtext">{tools.length} tools tracked</p>
         </div>
 
-        <div className="equipment-stat-card">
+        <div className="app-card equipment-stat-card">
           <div className="equipment-stat-header">
             <i className="bi bi-stars" style={{ fontSize: 14 }}></i>
             TOTAL SPENT ON ACCESSORIES
@@ -110,7 +110,7 @@ export default function EquipmentPage() {
           <p className="equipment-stat-subtext">{accessories.length} accessories tracked</p>
         </div>
 
-        <div className="equipment-stat-card equipment-stat-highlight">
+        <div className="app-card equipment-stat-card equipment-stat-highlight">
           <div className="equipment-stat-header">
             <i className="bi bi-trophy" style={{ fontSize: 14 }}></i>
             MOST EXPENSIVE ASSET
@@ -141,7 +141,7 @@ export default function EquipmentPage() {
 
         {/* ── Tools Table ──────────────────────────────────────────────── */}
         {activeTab === "tools" && (
-          <table className="equipment-table">
+          <table className="app-table">
             <thead>
               <tr>
                 <th>Brand</th>
@@ -175,7 +175,7 @@ export default function EquipmentPage() {
 
         {/* ── Accessories Table ────────────────────────────────────────── */}
         {activeTab === "accessories" && (
-          <table className="equipment-table">
+          <table className="app-table">
             <thead>
               <tr>
                 <th>Brand</th>
@@ -231,8 +231,8 @@ export default function EquipmentPage() {
 
       {/* ── Toast Notification ─────────────────────────────────────────── */}
       {toastMessage && (
-        <div className="equipment-toast">
-          <i className="bi bi-check-circle-fill" style={{ color: "#21262d", fontSize: 16 }}></i>
+        <div className="global-toast">
+          <i className="bi bi-check-circle-fill text-success"></i>
           {toastMessage}
         </div>
       )}

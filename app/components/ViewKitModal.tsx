@@ -74,7 +74,7 @@ export default function ViewKitModal({ isOpen, onClose, onEdit, onDelete, kit }:
             <h2 className="view-modal-title">{kit.name}</h2>
             <div className="view-modal-subtitle">{kit.brand} - {kit.grade}</div>
           </div>
-          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <div className="d-flex align-items-center gap-2">
             <button className="view-btn-edit" onClick={onEdit}>
               <i className="bi bi-pencil" style={{ marginRight: 6 }}></i> Edit
             </button>
@@ -163,7 +163,7 @@ export default function ViewKitModal({ isOpen, onClose, onEdit, onDelete, kit }:
               {/* Build Time Breakdown */}
               <div className="view-section">
                 <h3 className="view-section-title">BUILD TIME BREAKDOWN</h3>
-                <table className="view-breakdown-table">
+                <table className="app-table">
                   <thead>
                     <tr>
                       <th style={{ textAlign: "left" }}>PHASE</th>

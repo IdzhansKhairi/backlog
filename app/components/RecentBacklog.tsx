@@ -10,30 +10,26 @@ const mockBacklog = [
 export default function RecentBacklog() {
   return (
     <div className="app-card" style={{ marginTop: '16px', padding: '24px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+      <div className="d-flex justify-content-between align-items-center mb-4">
         <h3 style={{ color: '#fff', fontSize: '14px', fontWeight: 'bold', margin: 0 }}>
           Recently Added <span style={{ color: '#8b949e', fontWeight: 'normal' }}>- Active Backlog</span>
         </h3>
-        <a href="/collection" style={{ color: '#f28123', fontSize: '12px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <a href="/collection" className="d-flex align-items-center gap-1 text-decoration-none" style={{ color: '#f28123', fontSize: '12px' }}>
           View collection <i className="bi bi-arrow-up-right"></i>
         </a>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div className="d-flex flex-column gap-3">
         {mockBacklog.map((item) => {
           const statusConfig = STATUS_CONFIG[item.status] || STATUS_CONFIG['backlog'];
 
           return (
-            <div key={item.id} style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '16px',
+            <div key={item.id} className="d-flex justify-content-between align-items-center p-3" style={{
               borderRadius: '8px',
               border: '1px solid #282f35',
               backgroundColor: '#1c2128'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div className="d-flex align-items-center gap-3">
                 <div className="app-card-icon-wrapper" style={{ width: '40px', height: '40px', backgroundColor: '#2d333b' }}>
                   <i className="bi bi-boxes" style={{ color: '#f28123', fontSize: '18px' }}></i>
                 </div>
@@ -43,7 +39,7 @@ export default function RecentBacklog() {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div className="d-flex align-items-center gap-3">
                 <span style={{ color: '#8b949e', fontSize: '12px' }}>{item.price}</span>
                 <span style={{
                   padding: '4px 12px',

@@ -86,7 +86,7 @@ export default function AnalyticsPage() {
     setWishlist(prev => prev.filter(w => w.id !== item.id));
     setIsAcquiring(false);
     setItemToAcquire(null);
-    setToastMessage(`${item.name} moved to equipment`);
+    setToastMessage(`${item.name} Acquired! 🎉`);
   };
 
   // Calculate total expected cost dynamically
@@ -106,7 +106,7 @@ export default function AnalyticsPage() {
       {/* ── Top Grid (Lifetime Exp + Chart) ─────────────────────────────────── */}
       <div className="analytics-grid-top">
         {/* Left: Lifetime Expenditure */}
-        <div className="analytics-card analytics-highlight-card">
+        <div className="app-card analytics-card analytics-highlight-card">
           <div className="analytics-card-header">
             <i className="bi bi-wallet2"></i>
             LIFETIME EXPENDITURE
@@ -118,11 +118,11 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Right: Chart */}
-        <div className="analytics-card">
+        <div className="app-card analytics-card">
           <div className="analytics-card-header" style={{ marginBottom: 0 }}>
             Cost Distribution by Type
           </div>
-          <div style={{ width: "100%", height: 220, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <div className="w-100 d-flex flex-column align-items-center justify-content-center" style={{ height: 220 }}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -160,7 +160,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* ── Middle section: Cost Efficiency ──────────────────────────────────── */}
-      <div className="analytics-card analytics-efficiency-card">
+      <div className="app-card analytics-card analytics-efficiency-card">
         <div className="efficiency-left">
           <div className="efficiency-icon">
             <i className="bi bi-clock"></i>
@@ -199,7 +199,7 @@ export default function AnalyticsPage() {
       </div>
 
       <div className="wishlist-table-container">
-        <table className="wishlist-table">
+        <table className="app-table">
           <thead>
             <tr>
               <th>Type</th>
@@ -274,8 +274,8 @@ export default function AnalyticsPage() {
       />
 
       {toastMessage && (
-        <div className="analytics-toast">
-          <i className="bi bi-check-circle-fill" style={{ color: "#3fb950" }}></i>
+        <div className="global-toast">
+          <i className="bi bi-check-circle-fill text-success"></i>
           {toastMessage}
         </div>
       )}

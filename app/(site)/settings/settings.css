@@ -77,12 +77,7 @@
   background: transparent;
 }
 
-.profile-card {
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 12px;
-  padding: 24px;
-}
+
 
 /* ── Form Layout ────────────────────────────────────────────── */
 .profile-form-grid {
@@ -210,12 +205,7 @@
 }
 
 /* ── Lists / Tables Section ─────────────────────────────────── */
-.list-card {
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 12px;
-  padding: 24px;
-}
+
 
 .list-header-block {
   margin-bottom: 24px;

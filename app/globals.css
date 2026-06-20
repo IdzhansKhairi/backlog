@@ -7,7 +7,7 @@ body {
 }
 
 .app-card {
-  background-color: #161b21;
+  background-color: #1c2128;
   border-radius: 12px;
   padding: 20px;
   border: 1px solid #282f35;
@@ -52,4 +52,85 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ── Global Table Styles ── */
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.app-table thead {
+  border-bottom: 1px solid #282f35;
+}
+
+.app-table th {
+  color: #8b949e;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 20px;
+}
+
+.app-table td {
+  color: #fff;
+  font-size: 13px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #1c2128;
+}
+
+.app-table tbody tr {
+  transition: background-color 0.15s;
+}
+
+.app-table tbody tr:hover {
+  background-color: #1c2128;
+}
+
+/* ── Global Toast Notification (White Theme) ── */
+.global-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 10px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #24292f;
+  font-weight: 500;
+  font-size: 14px;
+  z-index: 1100;
+  animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.global-toast .bi-check-circle-fill {
+  color: #28a745;
+  /* Bootstrap text-success equivalent */
+  font-size: 18px;
+}
+
+@keyframes toastIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }

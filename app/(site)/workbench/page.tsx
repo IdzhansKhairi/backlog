@@ -278,7 +278,7 @@ export default function WorkbenchPage() {
           ))}
         </div>
 
-        <table className="phase-table">
+        <table className="app-table">
           <thead>
             <tr>
               <th>PHASE</th>
@@ -349,8 +349,8 @@ export default function WorkbenchPage() {
 
       {/* ── Toast ────────────────────────────────────────────────────────── */}
       {toastMessage && (
-        <div className="backlog-toast">
-          <i className="bi bi-check-circle-fill backlog-toast-icon"></i>
+        <div className="global-toast">
+          <i className="bi bi-check-circle-fill text-success"></i>
           {toastMessage}
         </div>
       )}

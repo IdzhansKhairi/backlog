@@ -25,7 +25,7 @@
 
 .equipment-add-btn {
   background: #f28123;
-  color: #fff;
+  color: #000;
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
@@ -51,10 +51,7 @@
 }
 
 .equipment-stat-card {
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 12px;
-  padding: 24px;
+  /* Inherits from .app-card */
   display: flex;
   flex-direction: column;
   transition: border-color 0.2s, transform 0.2s ease;

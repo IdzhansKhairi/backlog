@@ -56,7 +56,7 @@ export default function Header({ collapsed, setCollapsedAction }: { collapsed: b
             {showLogoutModal && (
                 <div className="modal-overlay" onClick={() => setShowLogoutModal(false)}>
                     <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
-                        <div className="modal-header lh-base d-flex align-items-center justify-content-between" style={{ alignItems: "flex-start", marginBottom: 12, padding: 0 }}>
+                        <div className="modal-header lh-base d-flex align-items-start justify-content-between mb-3 p-0">
                             <h2 className="modal-title" style={{ fontSize: 18, color: "#fff", margin: 0 }}>
                                 Log out
                             </h2>
@@ -71,7 +71,7 @@ export default function Header({ collapsed, setCollapsedAction }: { collapsed: b
                             </p>
                         </div>
 
-                        <div className="d-flex align-items-center justify-content-end" style={{ marginTop: 28, display: "flex", justifyContent: "flex-end", gap: 12, padding: 0 }}>
+                        <div className="d-flex align-items-center justify-content-end mt-4 p-0 gap-3">
                             <button className="modal-cancel-btn lh-base" onClick={() => setShowLogoutModal(false)} style={{ background: "transparent", border: "1px solid transparent", color: "#c9d1d9", padding: "8px 16px", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
                                 Cancel
                             </button>

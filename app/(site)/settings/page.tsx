@@ -182,7 +182,7 @@ export default function SettingsPage() {
       <div className="settings-content">
         {/* ── PROFILE TAB ── */}
         {activeTab === "Profile" && (
-          <div className="profile-card">
+          <div className="app-card profile-card">
             <div className="profile-form-grid">
               <div className="form-group">
                 <label className="form-label">Full name</label>
@@ -203,16 +203,16 @@ export default function SettingsPage() {
               <div className="form-group">
                 <label className="form-label">New password</label>
                 <div className="settings-password-wrapper">
-                  <input 
-                    type={showNewPassword ? "text" : "password"} 
-                    name="newPassword" 
-                    className="form-input settings-password-input" 
-                    placeholder="Leave blank to keep current" 
-                    value={profile.newPassword} 
-                    onChange={handleProfileChange} 
+                  <input
+                    type={showNewPassword ? "text" : "password"}
+                    name="newPassword"
+                    className="form-input settings-password-input"
+                    placeholder="Leave blank to keep current"
+                    value={profile.newPassword}
+                    onChange={handleProfileChange}
                   />
-                  <i 
-                    className={`bi ${showNewPassword ? "bi-eye-slash" : "bi-eye"} settings-password-icon`} 
+                  <i
+                    className={`bi ${showNewPassword ? "bi-eye-slash" : "bi-eye"} settings-password-icon`}
                     onClick={() => setShowNewPassword(!showNewPassword)}
                   ></i>
                 </div>
@@ -220,16 +220,16 @@ export default function SettingsPage() {
               <div className="form-group">
                 <label className="form-label">Confirm new password</label>
                 <div className="settings-password-wrapper">
-                  <input 
-                    type={showConfirmPassword ? "text" : "password"} 
-                    name="confirmPassword" 
-                    className="form-input settings-password-input" 
-                    placeholder="Confirm your new password" 
-                    value={profile.confirmPassword} 
-                    onChange={handleProfileChange} 
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    className="form-input settings-password-input"
+                    placeholder="Confirm your new password"
+                    value={profile.confirmPassword}
+                    onChange={handleProfileChange}
                   />
-                  <i 
-                    className={`bi ${showConfirmPassword ? "bi-eye-slash" : "bi-eye"} settings-password-icon`} 
+                  <i
+                    className={`bi ${showConfirmPassword ? "bi-eye-slash" : "bi-eye"} settings-password-icon`}
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   ></i>
                 </div>
@@ -249,7 +249,7 @@ export default function SettingsPage() {
 
         {/* ── LISTS TABS ── */}
         {activeTab !== "Profile" && (
-          <div className="list-card">
+          <div className="app-card list-card">
             <div className="list-header-block">
               <h2 className="list-title">{activeTab}</h2>
               <p className="list-desc">Renaming an item updates every record using it. Deleting is blocked while an item is in use.</p>
@@ -269,7 +269,7 @@ export default function SettingsPage() {
               </button>
             </div>
 
-            <table className="settings-table">
+            <table className="app-table">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -308,10 +308,9 @@ export default function SettingsPage() {
         )}
       </div>
 
-      {/* ── Toast Notification ── */}
       {toastMessage && (
-        <div className="backlog-toast">
-          <i className="bi bi-check-circle-fill backlog-toast-icon"></i>
+        <div className="global-toast">
+          <i className="bi bi-check-circle-fill text-success"></i>
           <span>{toastMessage}</span>
         </div>
       )}
@@ -320,7 +319,8 @@ export default function SettingsPage() {
       {editingItem && (
         <div className="modal-overlay" onClick={() => setEditingItem(null)}>
           <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
-            <div className="modal-header d-flex align-items-center justify-content-between" style={{ alignItems: "flex-start", marginBottom: 20 }}>
+
+            <div className="modal-header d-flex align-items-start justify-content-between">
               <h2 className="modal-title" style={{ fontSize: 18, color: "#fff", margin: 0 }}>
                 Rename {activeTab === "Brands" ? "brand" : activeTab === "Grades & Scales" ? "grade" : "retailer"}
               </h2>
@@ -330,7 +330,7 @@ export default function SettingsPage() {
             </div>
 
             <div className="modal-body">
-              <div className="modal-field" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div className="modal-field d-flex flex-column gap-2">
                 <label className="modal-label" style={{ color: "#fff", fontSize: 14, fontWeight: 600 }}>New name</label>
                 <input
                   type="text"
@@ -347,7 +347,7 @@ export default function SettingsPage() {
               </p>
             </div>
 
-            <div className="modal-footer" style={{ marginTop: 32, display: "flex", justifyContent: "flex-end", gap: 12 }}>
+            <div className="modal-footer d-flex justify-content-end gap-3 mt-4">
               <button className="modal-cancel-btn" onClick={() => setEditingItem(null)} style={{ background: "transparent", border: "1px solid transparent", color: "#c9d1d9", padding: "8px 16px", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
                 Cancel
               </button>
@@ -376,7 +376,7 @@ export default function SettingsPage() {
       {deletingItem && (
         <div className="modal-overlay" onClick={() => setDeletingItem(null)}>
           <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
-            <div className="modal-header d-flex align-items-center justify-content-between" style={{ alignItems: "flex-start", marginBottom: 12 }}>
+            <div className="modal-header d-flex align-items-start justify-content-between mb-3">
               <h2 className="modal-title" style={{ fontSize: 18, color: "#fff", margin: 0 }}>
                 Delete item
               </h2>
@@ -391,7 +391,7 @@ export default function SettingsPage() {
               </p>
             </div>
 
-            <div className="modal-footer" style={{ marginTop: 28, display: "flex", justifyContent: "flex-end", gap: 12 }}>
+            <div className="modal-footer d-flex justify-content-end gap-3 mt-4">
               <button className="modal-cancel-btn" onClick={() => setDeletingItem(null)} style={{ background: "transparent", border: "1px solid transparent", color: "#c9d1d9", padding: "8px 16px", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
                 Cancel
               </button>

@@ -94,8 +94,8 @@ export default function AcquiredModal({ isOpen, onClose, onAcquire, item }: Acqu
     <div className="modal-overlay" onClick={handleCancel}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="modal-header" style={{ alignItems: "flex-start" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+        <div className="modal-header align-items-start">
+          <div className="d-flex flex-column gap-1">
             <h2 className="modal-title">Mark as Acquired</h2>
             <div style={{ color: "#8b949e", fontSize: "13px", fontWeight: 500 }}>{subtitle}</div>
           </div>

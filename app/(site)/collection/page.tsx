@@ -122,9 +122,9 @@ export default function CollectionPage() {
   };
 
   return (
-    <div>
+    <div className="collection-container">
       {/* ── Header Section ──────────────────────────────────────────────── */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
+      <div className="d-flex justify-content-between align-items-start mb-4">
         <div>
           <p style={{ color: "#8b949e", fontSize: 12, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase", margin: 0, marginBottom: 4 }}>
             Inventory
@@ -156,7 +156,7 @@ export default function CollectionPage() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "16px" }}>
           {gradeCounts.map(([grade, count]) => (
             <div key={grade} className="app-card collection-grade-card" style={{ padding: "16px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <div className="d-flex align-items-center gap-2 mb-2">
                 <div className="app-card-icon-wrapper" style={{ width: 24, height: 24, borderRadius: 6 }}>
                   <i className="bi bi-box-seam" style={{ color: "#3fb950", fontSize: 11 }}></i>
                 </div>
@@ -197,7 +197,7 @@ export default function CollectionPage() {
         </div>
 
         {/* Table */}
-        <table className="collection-table">
+        <table className="app-table">
           <thead>
             <tr>
               <th>Brand</th>
@@ -237,8 +237,8 @@ export default function CollectionPage() {
                   <td style={{ color: "#8b949e" }}>RM {kit.price.toLocaleString()}</td>
                   <td style={{ color: "#8b949e" }}>{kit.source}</td>
                   <td>
-                    <span 
-                      className="collection-view-link" 
+                    <span
+                      className="collection-view-link"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedKit(kit);
@@ -288,8 +288,8 @@ export default function CollectionPage() {
 
       {/* ── Toast Notification ─────────────────────────────────────────── */}
       {toastMessage && (
-        <div className="collection-toast">
-          <i className="bi bi-check-circle-fill" style={{ color: "#3fb950", fontSize: 18 }}></i>
+        <div className="global-toast">
+          <i className="bi bi-check-circle-fill text-success"></i>
           {toastMessage}
         </div>
       )}
