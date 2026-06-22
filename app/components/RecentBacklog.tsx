@@ -9,12 +9,12 @@ const mockBacklog = [
 
 export default function RecentBacklog() {
   return (
-    <div className="app-card" style={{ marginTop: '16px', padding: '24px' }}>
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 style={{ color: '#fff', fontSize: '14px', fontWeight: 'bold', margin: 0 }}>
-          Recently Added <span style={{ color: '#8b949e', fontWeight: 'normal' }}>- Active Backlog</span>
+    <div className="app-card recent-backlog-card">
+      <div className="d-flex justify-content-between align-items-center recent-backlog-header">
+        <h3 className="dashboard-section-title" style={{ margin: 0 }}>
+          Recently Added <span className="dashboard-section-subtitle">- Active Backlog</span>
         </h3>
-        <a href="/collection" className="d-flex align-items-center gap-1 text-decoration-none" style={{ color: '#f28123', fontSize: '12px' }}>
+        <a href="/collection" className="d-flex align-items-center gap-1 text-decoration-none recent-backlog-link">
           View collection <i className="bi bi-arrow-up-right"></i>
         </a>
       </div>
@@ -24,28 +24,20 @@ export default function RecentBacklog() {
           const statusConfig = STATUS_CONFIG[item.status] || STATUS_CONFIG['backlog'];
 
           return (
-            <div key={item.id} className="d-flex justify-content-between align-items-center p-3" style={{
-              borderRadius: '8px',
-              border: '1px solid #282f35',
-              backgroundColor: '#1c2128'
-            }}>
+            <div key={item.id} className="d-flex justify-content-between align-items-center p-3 recent-backlog-item">
               <div className="d-flex align-items-center gap-3">
-                <div className="app-card-icon-wrapper" style={{ width: '40px', height: '40px', backgroundColor: '#2d333b' }}>
-                  <i className="bi bi-boxes" style={{ color: '#f28123', fontSize: '18px' }}></i>
+                <div className="recent-backlog-item-icon">
+                  <i className="bi bi-boxes dashboard-icon-orange" style={{ fontSize: '18px' }}></i>
                 </div>
                 <div>
-                  <div style={{ color: '#fff', fontSize: '14px', fontWeight: 'bold', marginBottom: '4px' }}>{item.name}</div>
-                  <div style={{ color: '#8b949e', fontSize: '12px' }}>{item.details}</div>
+                  <div className="recent-backlog-item-name">{item.name}</div>
+                  <div className="recent-backlog-item-details">{item.details}</div>
                 </div>
               </div>
 
-              <div className="d-flex align-items-center gap-3">
-                <span style={{ color: '#8b949e', fontSize: '12px' }}>{item.price}</span>
-                <span style={{
-                  padding: '4px 12px',
-                  borderRadius: '12px',
-                  fontSize: '11px',
-                  fontWeight: 'bold',
+              <div className="d-flex flex-column align-items-end gap-1">
+                <span className="recent-backlog-item-details">{item.price}</span>
+                <span className="recent-backlog-badge" style={{
                   backgroundColor: statusConfig.bg,
                   color: statusConfig.color,
                   border: `1px solid ${statusConfig.border}`

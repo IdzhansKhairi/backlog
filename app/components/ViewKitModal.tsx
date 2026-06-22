@@ -85,21 +85,23 @@ export default function ViewKitModal({ isOpen, onClose, onEdit, onDelete, kit: p
     <div className={`modal-overlay ${isClosing ? "closing" : ""}`} onClick={onClose}>
       <div className={`modal-container view-modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="view-modal-header">
-          <div>
-            <h2 className="view-modal-title">{kit.name}</h2>
-            <div className="view-modal-subtitle">{kit.brand} - {kit.grade}</div>
+        <div className="modal-header align-items-start">
+          <div className="d-flex flex-column gap-1">
+            <h2 className="modal-title">{kit.name}</h2>
+            <div className="modal-subtitle-text">{kit.brand} · {kit.grade}</div>
           </div>
           <div className="d-flex align-items-center gap-2">
-            <button className="view-btn-edit" onClick={onEdit}>
-              <i className="bi bi-pencil" style={{ marginRight: 6 }}></i> Edit
+            <button className="view-delete-btn" onClick={() => onDelete()}>
+              <i className="bi bi-trash modal-icon-sm"></i> Remove Kit
             </button>
-            <button className="view-btn-delete" onClick={onDelete}>
-              <i className="bi bi-trash3" style={{ marginRight: 6 }}></i> Delete
-            </button>
-            <button className="modal-close-btn" style={{ marginLeft: 8 }} onClick={onClose}>
-              <i className="bi bi-x-lg"></i>
-            </button>
+            <div>
+              <button className="modal-cancel-btn me-2" onClick={onClose}>
+                Close
+              </button>
+              <button className="modal-submit-btn" onClick={() => onEdit()}>
+                <i className="bi bi-pencil-square modal-icon-md"></i> Edit Details
+              </button>
+            </div>
           </div>
         </div>
 
@@ -182,17 +184,17 @@ export default function ViewKitModal({ isOpen, onClose, onEdit, onDelete, kit: p
                 <table className="app-table">
                   <thead>
                     <tr>
-                      <th style={{ textAlign: "left" }}>PHASE</th>
-                      <th style={{ textAlign: "right", width: "100px" }}>TIME</th>
-                      <th style={{ textAlign: "right", width: "60px" }}>%</th>
+                      <th className="view-table-header-left">PHASE</th>
+                      <th className="view-table-header-right view-table-col-100">TIME</th>
+                      <th className="view-table-header-right view-table-col-60">%</th>
                     </tr>
                   </thead>
                   <tbody>
                     {details.buildTimeBreakdown?.map((phase: any, idx: number) => (
                       <tr key={idx}>
                         <td>{phase.phase}</td>
-                        <td style={{ textAlign: "right" }}>{phase.time}</td>
-                        <td style={{ textAlign: "right", color: "#8b949e" }}>{phase.percentage}</td>
+                        <td className="view-table-cell-right">{phase.time}</td>
+                        <td className="view-table-cell-right text-muted">{phase.percentage}</td>
                       </tr>
                     ))}
                   </tbody>

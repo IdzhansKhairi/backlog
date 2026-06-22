@@ -54,15 +54,14 @@ export default function Header({ collapsed, setCollapsedAction }: { collapsed: b
                 </Avatar>
 
                 <div className="d-flex align-items-center logout-btn gap-2 px-3 py-2" onClick={() => setShowLogoutModal(true)}>
-                    <i className="bi bi-box-arrow-right" style={{ fontSize: "20px" }}></i>
+                    <i className="bi bi-box-arrow-right logout-icon"></i>
                     <span>Log Out</span>
                 </div>
             </div>
 
-            {/* ── Logout Confirmation Modal ── */}
             {isLogoutRendered && (
                 <div className={`modal-overlay ${isLogoutClosing ? "closing" : ""}`} onClick={() => setShowLogoutModal(false)}>
-                    <div className={`modal-container ${isLogoutClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
+                    <div className={`modal-container small-modal-container ${isLogoutClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
                         <div className="modal-header lh-base d-flex align-items-start justify-content-between mb-3 p-0">
                             <h2 className="modal-title" style={{ fontSize: 18, color: "#fff", margin: 0 }}>
                                 Log out
@@ -79,10 +78,10 @@ export default function Header({ collapsed, setCollapsedAction }: { collapsed: b
                         </div>
 
                         <div className="d-flex align-items-center justify-content-end mt-4 p-0 gap-3">
-                            <button className="modal-cancel-btn lh-base" onClick={() => setShowLogoutModal(false)} style={{ background: "transparent", border: "1px solid transparent", color: "#c9d1d9", padding: "8px 16px", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
+                            <button className="modal-cancel-btn lh-base" onClick={() => setShowLogoutModal(false)}>
                                 Cancel
                             </button>
-                            <button className="modal-submit-btn lh-base" onClick={() => router.push("/login")} style={{ background: "#da3633", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
+                            <button className="modal-submit-btn lh-base bg-danger border-0 text-white" onClick={() => router.push("/login")}>
                                 Yes, log out
                             </button>
                         </div>

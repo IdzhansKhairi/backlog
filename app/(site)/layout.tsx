@@ -19,21 +19,15 @@ export default function SiteLayout({
   const [collapsed, setCollapsed] = React.useState(false);
 
   return (
-    <Layout style={{ height: "100vh", overflow: "hidden" }}>
+    <Layout className="site-layout-root">
       {/* Sidebar is included here and will ONLY show on pages inside the (site) folder */}
       <Sidebar collapsed={collapsed} />
-      <Layout style={{ background: "#0e1217", display: "flex", flexDirection: "column", overflowY: "auto" }}>
+      <Layout className="site-layout-main">
         <SiteHeader collapsed={collapsed} setCollapsedAction={setCollapsed} />
-        <Content style={{ padding: "16px 24px", flex: 1 }}>
+        <Content className="site-layout-content">
           <div
-            style={{
-              padding: 0,
-              minHeight: 360,
-              background: "#0e1217",
-              color: "#fff",
-              borderRadius: borderRadiusLG,
-            }}
-            className="pb-4"
+            className="site-layout-body pb-4"
+            style={{ borderRadius: borderRadiusLG }}
           >
             {children}
           </div>

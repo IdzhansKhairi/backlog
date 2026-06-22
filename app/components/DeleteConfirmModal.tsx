@@ -31,7 +31,7 @@ export default function DeleteConfirmModal({ isOpen, onClose, onConfirm, item, t
   if (!isRendered || !displayItem) return null;
 
   return (
-    <div className={`modal-overlay ${isClosing ? "closing" : ""}`} style={{ zIndex: 1100 }} onClick={onClose}>
+    <div className={`modal-overlay modal-overlay-top ${isClosing ? "closing" : ""}`} onClick={onClose}>
       <div className={`modal-container delete-modal-container ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
         <h3 className="delete-modal-title">{title}</h3>
         <p className="delete-modal-text">

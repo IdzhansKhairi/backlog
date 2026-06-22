@@ -34,9 +34,9 @@ const barData = [
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div style={{ backgroundColor: '#1c2128', border: '1px solid #30363d', padding: '10px', borderRadius: '8px' }}>
-        <p style={{ color: '#fff', margin: 0, fontSize: '14px', fontWeight: 'bold' }}>{label}</p>
-        <p style={{ color: payload[0].color || '#1da1f2', margin: '4px 0 0 0', fontSize: '14px' }}>
+      <div className="dashboard-chart-tooltip">
+        <p className="dashboard-chart-tooltip-label">{label}</p>
+        <p className="dashboard-chart-tooltip-value" style={{ color: payload[0].color || '#1da1f2' }}>
           Value: {payload[0].value}
         </p>
       </div>
@@ -47,14 +47,14 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export default function DashboardCharts() {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '16px', marginTop: '16px' }}>
+    <div className="dashboard-charts-grid">
       
       {/* Line Chart */}
-      <div className="app-card" style={{ padding: '24px 24px 16px' }}>
-        <h3 style={{ color: '#fff', fontSize: '14px', fontWeight: 'bold', margin: '0 0 24px 0' }}>
-          Kits Acquired <span style={{ color: '#8b949e', fontWeight: 'normal' }}>· Last 6 months</span>
+      <div className="app-card dashboard-chart-card">
+        <h3 className="dashboard-section-title">
+          Kits Acquired <span className="dashboard-section-subtitle">· Last 6 months</span>
         </h3>
-        <div style={{ width: '100%', height: 250 }}>
+        <div className="dashboard-chart-wrapper">
           <ResponsiveContainer>
             <LineChart data={lineData} margin={{ top: 5, right: 20, bottom: 5, left: -20 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#282f35" vertical={true} horizontal={true} />
@@ -75,11 +75,11 @@ export default function DashboardCharts() {
       </div>
 
       {/* Bar Chart */}
-      <div className="app-card" style={{ padding: '24px 24px 16px' }}>
-        <h3 style={{ color: '#fff', fontSize: '14px', fontWeight: 'bold', margin: '0 0 24px 0' }}>
-          Monthly Spending <span style={{ color: '#8b949e', fontWeight: 'normal' }}>· Last 6 months</span>
+      <div className="app-card dashboard-chart-card">
+        <h3 className="dashboard-section-title">
+          Spending <span className="dashboard-section-subtitle">· Last 6 months</span>
         </h3>
-        <div style={{ width: '100%', height: 250 }}>
+        <div className="dashboard-chart-wrapper">
           <ResponsiveContainer>
             <BarChart data={barData} margin={{ top: 5, right: 20, bottom: 5, left: -20 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#282f35" vertical={true} horizontal={true} />

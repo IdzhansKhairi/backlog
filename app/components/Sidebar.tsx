@@ -33,27 +33,27 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
   const flatItems = [
     {
       key: "/dashboard",
-      icon: <i className="bi bi-grid-1x2" style={{ fontSize: "1.1rem" }}></i>,
+      icon: <i className="bi bi-grid-1x2"></i>,
       label: <Link href="/dashboard" className="text-decoration-none">Dashboard</Link>,
     },
     {
       key: "/analytics",
-      icon: <i className="bi bi-graph-up" style={{ fontSize: "1.1rem" }}></i>,
+      icon: <i className="bi bi-graph-up"></i>,
       label: <Link href="/analytics" className="text-decoration-none">Financial Analytics</Link>,
     },
     {
       key: "/collection",
-      icon: <i className="bi bi-collection" style={{ fontSize: "1.1rem" }}></i>,
+      icon: <i className="bi bi-collection"></i>,
       label: <Link href="/collection" className="text-decoration-none">Collection</Link>,
     },
     {
       key: "/equipment",
-      icon: <i className="bi bi-hammer" style={{ fontSize: "1.1rem" }}></i>,
+      icon: <i className="bi bi-hammer"></i>,
       label: <Link href="/equipment" className="text-decoration-none">Equipment</Link>,
     },
     {
       key: "/workbench",
-      icon: <i className="bi bi-wrench" style={{ fontSize: "1.1rem" }}></i>,
+      icon: <i className="bi bi-wrench"></i>,
       label: <Link href="/workbench" className="text-decoration-none">Workbench</Link>,
     },
   ];

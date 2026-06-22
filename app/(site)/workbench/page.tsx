@@ -230,7 +230,7 @@ export default function WorkbenchPage() {
                     {renderStatusBadge(kit.status)}
                   </div>
                   <div className="kit-dropdown-item-right">
-                    {selectedKitId === kit.id && <i className="bi bi-check2" style={{ color: "#c9d1d9", fontSize: "16px" }}></i>}
+                    {selectedKitId === kit.id && <i className="bi bi-check2 kit-dropdown-check"></i>}
                   </div>
                 </div>
               ))}
@@ -367,17 +367,17 @@ export default function WorkbenchPage() {
 
       {/* ── Finish Build Modal ────────────────────────────────────────────── */}
       {isFinishRendered && (
-        <div className={`modal-overlay ${isFinishClosing ? "closing" : ""}`} style={{ zIndex: 1100 }} onClick={() => setIsFinishModalOpen(false)}>
-          <div className={`modal-container ${isFinishClosing ? "closing" : ""}`} style={{ width: 440, padding: 24 }} onClick={(e) => e.stopPropagation()}>
-            <h3 style={{ color: "#fff", margin: "0 0 16px 0", fontSize: 18 }}>Finish Build?</h3>
-            <p style={{ color: "#c9d1d9", fontSize: 14, margin: "0 0 24px 0", lineHeight: 1.5 }}>
+        <div className={`modal-overlay modal-overlay-top ${isFinishClosing ? "closing" : ""}`} onClick={() => setIsFinishModalOpen(false)}>
+          <div className={`modal-container small-modal-container ${isFinishClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
+            <h3 className="finish-modal-title">Finish Build?</h3>
+            <p className="finish-modal-text">
               Are you sure you want to finish building <strong>{selectedKit?.name}</strong>? This will mark the kit as completed and reset the timer.
             </p>
             <div className="d-flex justify-content-end gap-3">
-              <button style={{ background: "transparent", border: "1px solid #30363d", color: "#c9d1d9", padding: "8px 16px", borderRadius: 6, fontWeight: "bold", cursor: "pointer" }} onClick={() => setIsFinishModalOpen(false)}>
+              <button className="modal-cancel-btn" onClick={() => setIsFinishModalOpen(false)}>
                 Cancel
               </button>
-              <button style={{ background: "#da3633", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 6, fontWeight: "bold", cursor: "pointer" }} onClick={() => { setIsFinishModalOpen(false); handleFinishBuild(); }}>
+              <button className="modal-submit-btn bg-danger border-0 text-white" onClick={() => { setIsFinishModalOpen(false); handleFinishBuild(); }}>
                 Yes, Finish Build
               </button>
             </div>

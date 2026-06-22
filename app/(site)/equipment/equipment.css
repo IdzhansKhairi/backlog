@@ -34,6 +34,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  gap: 6px;
   transition: background 0.2s;
 }
 
@@ -214,4 +215,43 @@
 .equipment-delete-btn:hover {
   color: #f85149;
   background: rgba(248, 81, 73, 0.1);
+}
+
+/* ── Table Utility Classes ───────────────────────────────────────────── */
+.equipment-page-container {
+  padding-bottom: 60px;
+}
+
+.equipment-stat-icon {
+  font-size: 14px;
+}
+
+.equipment-delete-icon {
+  font-size: 15px;
+}
+
+.equipment-col-center {
+  text-align: center;
+}
+
+.equipment-col-right {
+  text-align: right;
+}
+
+.equipment-cell-muted {
+  color: #8b949e;
+}
+
+.equipment-cell-center-muted {
+  text-align: center;
+  color: #8b949e;
+}
+
+.equipment-linked {
+  color: #8b949e;
+}
+
+.equipment-unlinked {
+  color: #484f58;
+  font-style: italic;
 }

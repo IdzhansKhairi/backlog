@@ -310,10 +310,9 @@ export default function SettingsPage() {
                         <div className="action-btns">
                           <button className="action-btn" title="Edit" onClick={() => handleEditItem(item)}><i className="bi bi-pencil"></i></button>
                           <button
-                            className="action-btn delete"
+                            className={`action-btn delete ${item.inUse > 0 ? "action-btn-disabled" : ""}`}
                             title={item.inUse > 0 ? "Cannot delete item in use" : "Delete"}
                             disabled={item.inUse > 0}
-                            style={{ opacity: item.inUse > 0 ? 0.3 : 1, cursor: item.inUse > 0 ? "not-allowed" : "pointer" }}
                             onClick={() => { if (item.inUse === 0) setDeletingItem({ listType: activeTab, item }) }}
                           >
                             <i className="bi bi-trash3"></i>
@@ -345,14 +344,14 @@ export default function SettingsPage() {
             <div className="modal-header align-items-start">
               <div className="d-flex flex-column gap-1">
                 <h2 className="modal-title">Confirm Profile Changes</h2>
-                <div style={{ color: "#8b949e", fontSize: "13px", fontWeight: 500 }}>Update your personal information</div>
+                <div className="modal-subtitle-text">Update your personal information</div>
               </div>
               <button className="modal-close-btn" onClick={() => setIsSaveProfileModalOpen(false)}>
                 <i className="bi bi-x-lg"></i>
               </button>
             </div>
             <div className="modal-body">
-              <p style={{ margin: 0, color: "#c9d1d9" }}>Are you sure you want to save these changes to your profile?</p>
+              <p className="m-0" style={{ color: "#c9d1d9" }}>Are you sure you want to save these changes to your profile?</p>
             </div>
             <div className="modal-footer">
               <button className="modal-cancel-btn" onClick={() => setIsSaveProfileModalOpen(false)}>Cancel</button>
@@ -365,52 +364,42 @@ export default function SettingsPage() {
       {/* ── Rename Modal ── */}
       {isEditRendered && activeEditingItem && (
         <div className={`modal-overlay ${isEditClosing ? "closing" : ""}`} onClick={() => setEditingItem(null)}>
-          <div className={`modal-container ${isEditClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
+          <div className={`modal-container small-modal-container ${isEditClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
 
             <div className="modal-header d-flex align-items-start justify-content-between">
-              <h2 className="modal-title" style={{ fontSize: 18, color: "#fff", margin: 0 }}>
+              <h2 className="modal-title m-0">
                 Rename {activeTab === "Brands" ? "brand" : activeTab === "Grades & Scales" ? "grade" : "retailer"}
               </h2>
-              <button className="modal-close-btn" onClick={() => setEditingItem(null)} style={{ background: "transparent", border: "none", color: "#8b949e", cursor: "pointer" }}>
+              <button className="modal-close-btn" onClick={() => setEditingItem(null)}>
                 <i className="bi bi-x-lg"></i>
               </button>
             </div>
 
             <div className="modal-body">
               <div className="modal-field d-flex flex-column gap-2">
-                <label className="modal-label" style={{ color: "#fff", fontSize: 14, fontWeight: 600 }}>New name</label>
+                <label className="settings-edit-label">New name</label>
                 <input
                   type="text"
-                  className="modal-input"
+                  className="modal-input settings-edit-input"
                   value={editItemName}
                   onChange={(e) => setEditItemName(e.target.value)}
                   onKeyDown={(e) => { if (e.key === "Enter") handleSaveEdit() }}
-                  style={{ background: "#0d1117", border: "1px solid #f28123", borderRadius: 6, color: "#fff", padding: "10px 14px", outline: "none" }}
                   autoFocus
                 />
               </div>
-              <p style={{ color: "#8b949e", fontSize: 13, marginTop: 12, marginBottom: 0 }}>
+              <p className="settings-edit-hint">
                 Existing records using "{activeEditingItem.name}" will be updated.
               </p>
             </div>
 
             <div className="modal-footer d-flex justify-content-end gap-3 mt-4">
-              <button className="modal-cancel-btn" onClick={() => setEditingItem(null)} style={{ background: "transparent", border: "1px solid transparent", color: "#c9d1d9", padding: "8px 16px", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
+              <button className="modal-cancel-btn" onClick={() => setEditingItem(null)}>
                 Cancel
               </button>
               <button
                 className="modal-submit-btn"
                 onClick={handleSaveEdit}
                 disabled={!editItemName.trim() || editItemName.trim() === activeEditingItem.name}
-                style={{
-                  background: (!editItemName.trim() || editItemName.trim() === activeEditingItem.name) ? "#3d3020" : "#f28123",
-                  border: "none",
-                  color: (!editItemName.trim() || editItemName.trim() === activeEditingItem.name) ? "#8b7a5e" : "#000",
-                  padding: "8px 16px",
-                  borderRadius: 6,
-                  cursor: (!editItemName.trim() || editItemName.trim() === activeEditingItem.name) ? "not-allowed" : "pointer",
-                  fontWeight: 600
-                }}
               >
                 Save
               </button>
@@ -419,30 +408,29 @@ export default function SettingsPage() {
         </div>
       )}
 
-      {/* ── Delete Confirmation Modal ── */}
       {isDeleteRendered && activeDeletingItem && (
         <div className={`modal-overlay ${isDeleteClosing ? "closing" : ""}`} onClick={() => setDeletingItem(null)}>
-          <div className={`modal-container ${isDeleteClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()} style={{ width: 440, padding: 24, borderRadius: 12, background: "#161b22", border: "1px solid #30363d" }}>
+          <div className={`modal-container small-modal-container ${isDeleteClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
             <div className="modal-header d-flex align-items-start justify-content-between mb-3">
-              <h2 className="modal-title" style={{ fontSize: 18, color: "#fff", margin: 0 }}>
+              <h2 className="modal-title m-0">
                 Delete item
               </h2>
-              <button className="modal-close-btn" onClick={() => setDeletingItem(null)} style={{ background: "transparent", border: "none", color: "#8b949e", cursor: "pointer" }}>
+              <button className="modal-close-btn" onClick={() => setDeletingItem(null)}>
                 <i className="bi bi-x-lg"></i>
               </button>
             </div>
 
             <div className="modal-body">
-              <p style={{ color: "#c9d1d9", fontSize: 14, margin: 0 }}>
+              <p className="m-0" style={{ color: "#c9d1d9", fontSize: 14 }}>
                 Are you sure you want to delete <strong>"{activeDeletingItem.item.name}"</strong>? This action cannot be undone.
               </p>
             </div>
 
             <div className="modal-footer d-flex justify-content-end gap-3 mt-4">
-              <button className="modal-cancel-btn" onClick={() => setDeletingItem(null)} style={{ background: "transparent", border: "1px solid transparent", color: "#c9d1d9", padding: "8px 16px", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
+              <button className="modal-cancel-btn" onClick={() => setDeletingItem(null)}>
                 Cancel
               </button>
-              <button className="modal-submit-btn" onClick={confirmDelete} style={{ background: "#da3633", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
+              <button className="modal-submit-btn bg-danger border-0 text-white" onClick={confirmDelete}>
                 Yes, delete
               </button>
             </div>

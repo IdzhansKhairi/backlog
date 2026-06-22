@@ -549,3 +549,22 @@
   from { transform: translateY(100%); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+/* ── Workbench Utility Classes ─────────────────────────────────────────── */
+.kit-dropdown-check {
+  color: #c9d1d9;
+  font-size: 16px;
+}
+
+.finish-modal-title {
+  color: #fff;
+  margin: 0 0 16px 0;
+  font-size: 18px;
+}
+
+.finish-modal-text {
+  color: #c9d1d9;
+  font-size: 14px;
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+}

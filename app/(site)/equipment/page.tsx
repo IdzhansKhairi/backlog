@@ -78,7 +78,7 @@ export default function EquipmentPage() {
     : { name: "None", type: "N/A", price: 0 };
 
   return (
-    <div style={{ paddingBottom: 60 }}>
+    <div className="equipment-page-container">
       {/* ── Header ───────────────────────────────────────────────────────── */}
       <div className="equipment-header">
         <div>
@@ -86,7 +86,7 @@ export default function EquipmentPage() {
           <h1 className="equipment-title">Equipment &amp; Assets</h1>
         </div>
         <button className="equipment-add-btn" onClick={() => setIsAdding(true)}>
-          <i className="bi bi-plus-lg" style={{ marginRight: 6 }}></i> Add Asset
+          <i className="bi bi-plus-lg"></i> Add Asset
         </button>
       </div>
 
@@ -94,7 +94,7 @@ export default function EquipmentPage() {
       <div className="equipment-stats-grid">
         <div className="app-card equipment-stat-card">
           <div className="equipment-stat-header">
-            <i className="bi bi-wrench-adjustable" style={{ fontSize: 14 }}></i>
+            <i className="bi bi-wrench-adjustable equipment-stat-icon"></i>
             TOTAL SPENT ON TOOLS
           </div>
           <div className="equipment-stat-value">RM {totalTools.toLocaleString()}</div>
@@ -103,7 +103,7 @@ export default function EquipmentPage() {
 
         <div className="app-card equipment-stat-card">
           <div className="equipment-stat-header">
-            <i className="bi bi-stars" style={{ fontSize: 14 }}></i>
+            <i className="bi bi-stars equipment-stat-icon"></i>
             TOTAL SPENT ON ACCESSORIES
           </div>
           <div className="equipment-stat-value">RM {totalAccessories.toLocaleString()}</div>
@@ -112,7 +112,7 @@ export default function EquipmentPage() {
 
         <div className="app-card equipment-stat-card equipment-stat-highlight">
           <div className="equipment-stat-header">
-            <i className="bi bi-trophy" style={{ fontSize: 14 }}></i>
+            <i className="bi bi-trophy equipment-stat-icon"></i>
             MOST EXPENSIVE ASSET
           </div>
           <div className="equipment-stat-value equipment-stat-truncate">
@@ -146,8 +146,8 @@ export default function EquipmentPage() {
               <tr>
                 <th>Brand</th>
                 <th>Item Name</th>
-                <th style={{ textAlign: "center" }}>Qty</th>
-                <th style={{ textAlign: "right" }}>Price</th>
+                <th className="equipment-col-center">Qty</th>
+                <th className="equipment-col-right">Price</th>
                 <th>Purchase Date</th>
                 <th>Source</th>
                 <th></th>
@@ -158,13 +158,13 @@ export default function EquipmentPage() {
                 <tr key={tool.id}>
                   <td className="equipment-brand">{tool.brand}</td>
                   <td>{tool.name}</td>
-                  <td style={{ textAlign: "center", color: "#8b949e" }}>×{tool.qty}</td>
-                  <td className="equipment-price" style={{ textAlign: "right" }}>RM {tool.price}</td>
-                  <td style={{ color: "#8b949e" }}>{tool.purchaseDate}</td>
-                  <td style={{ color: "#8b949e" }}>{tool.source}</td>
-                  <td style={{ textAlign: "right" }}>
+                  <td className="equipment-cell-center-muted">×{tool.qty}</td>
+                  <td className="equipment-price equipment-col-right">RM {tool.price}</td>
+                  <td className="equipment-cell-muted">{tool.purchaseDate}</td>
+                  <td className="equipment-cell-muted">{tool.source}</td>
+                  <td className="equipment-col-right">
                     <button className="equipment-delete-btn" onClick={() => handleDeleteClick(tool)}>
-                      <i className="bi bi-trash3" style={{ fontSize: 15 }}></i>
+                      <i className="bi bi-trash3 equipment-delete-icon"></i>
                     </button>
                   </td>
                 </tr>
@@ -180,8 +180,8 @@ export default function EquipmentPage() {
               <tr>
                 <th>Brand</th>
                 <th>Item Name</th>
-                <th style={{ textAlign: "center" }}>Qty</th>
-                <th style={{ textAlign: "right" }}>Price</th>
+                <th className="equipment-col-center">Qty</th>
+                <th className="equipment-col-right">Price</th>
                 <th>Purchase Date</th>
                 <th>Source</th>
                 <th>Linked Kit</th>
@@ -193,16 +193,16 @@ export default function EquipmentPage() {
                 <tr key={acc.id}>
                   <td className="equipment-brand">{acc.brand}</td>
                   <td>{acc.name}</td>
-                  <td style={{ textAlign: "center", color: "#8b949e" }}>×{acc.qty}</td>
-                  <td className="equipment-price" style={{ textAlign: "right" }}>RM {acc.price}</td>
-                  <td style={{ color: "#8b949e" }}>{acc.purchaseDate}</td>
-                  <td style={{ color: "#8b949e" }}>{acc.source}</td>
-                  <td style={{ color: acc.linkedKit ? "#8b949e" : "#484f58", fontStyle: acc.linkedKit ? "normal" : "italic" }}>
+                  <td className="equipment-cell-center-muted">×{acc.qty}</td>
+                  <td className="equipment-price equipment-col-right">RM {acc.price}</td>
+                  <td className="equipment-cell-muted">{acc.purchaseDate}</td>
+                  <td className="equipment-cell-muted">{acc.source}</td>
+                  <td className={acc.linkedKit ? "equipment-linked" : "equipment-unlinked"}>
                     {acc.linkedKit || "Unlinked"}
                   </td>
-                  <td style={{ textAlign: "right" }}>
+                  <td className="equipment-col-right">
                     <button className="equipment-delete-btn" onClick={() => handleDeleteClick(acc)}>
-                      <i className="bi bi-trash3" style={{ fontSize: 15 }}></i>
+                      <i className="bi bi-trash3 equipment-delete-icon"></i>
                     </button>
                   </td>
                 </tr>

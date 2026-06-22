@@ -58,6 +58,56 @@
   }
 }
 
+.modal-cancel-btn:hover {
+  background: #21262d;
+}
+
+/* Sidebar */
+.sidebar-menu .bi {
+  font-size: 1.1rem;
+}
+
+/* Header */
+.logout-icon {
+  font-size: 20px;
+}
+
+.small-modal-container {
+  width: 440px;
+  padding: 24px;
+}
+
+/* Modal Helpers */
+.modal-overlay-top {
+  z-index: 1100;
+}
+.modal-icon-sm {
+  font-size: 16px;
+  margin-right: 4px;
+}
+.modal-icon-md {
+  font-size: 18px;
+  margin-right: 6px;
+}
+.modal-subtitle-text {
+  color: #8b949e;
+  font-size: 13px;
+  font-weight: 500;
+}
+.modal-input-disabled {
+  color: #8b949e !important;
+}
+.modal-mt-16 {
+  margin-top: 16px;
+}
+
+/* ViewKitModal specific */
+.view-table-header-left { text-align: left; }
+.view-table-header-right { text-align: right; }
+.view-table-col-100 { width: 100px; }
+.view-table-col-60 { width: 60px; }
+.view-table-cell-right { text-align: right; }
+
 .modal-container {
   background: #161b22;
   border: 1px solid #30363d;

@@ -112,8 +112,8 @@ export default function EditWishlistModal({ isOpen, onClose, onEdit, item }: Edi
         {/* Header */}
         <div className="modal-header align-items-start">
           <div className="d-flex flex-column gap-1">
-            <h2 className="modal-title">Edit Wishlist Item</h2>
-            <div style={{ color: "#8b949e", fontSize: "13px", fontWeight: 500 }}>{subtitle}</div>
+            <h2 className="modal-title">{displayItem.name}</h2>
+            <div className="modal-subtitle-text">{subtitle}</div>
           </div>
           <button className="modal-close-btn" onClick={handleCancel}>
             <i className="bi bi-x-lg"></i>
@@ -173,10 +173,9 @@ export default function EditWishlistModal({ isOpen, onClose, onEdit, item }: Edi
               ) : (
                 <input
                   type="text"
-                  className="modal-input"
+                  className="modal-input modal-input-disabled"
                   value={isTool ? "Tool" : "Accessory"}
                   disabled
-                  style={{ color: "#8b949e" }}
                 />
               )}
             </div>
@@ -209,7 +208,7 @@ export default function EditWishlistModal({ isOpen, onClose, onEdit, item }: Edi
 
           {/* Box Art URL (Model Kit Only) */}
           {isModelKit && (
-            <div className="modal-field" style={{ marginTop: 16 }}>
+            <div className="modal-field modal-mt-16">
               <label className="modal-label">Box Art URL</label>
               <input
                 type="text"

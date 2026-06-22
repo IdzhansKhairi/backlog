@@ -229,10 +229,10 @@ export default function EditKitModal({ isOpen, onClose, onSave, kit }: EditKitMo
         {/* Footer */}
         <div className="edit-modal-footer">
           <button className="edit-cancel-btn" onClick={onClose}>
-            <i className="bi bi-x" style={{ marginRight: 4, fontSize: 16 }}></i> Cancel
+            <i className="bi bi-x modal-icon-sm"></i> Cancel
           </button>
           <button className="edit-save-btn" onClick={handleSave}>
-            <i className="bi bi-save" style={{ marginRight: 6 }}></i> Save Changes
+            <i className="bi bi-save modal-icon-md"></i> Save Changes
           </button>
         </div>
       </div>
